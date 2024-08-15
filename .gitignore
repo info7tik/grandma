@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 
+# Capacitor Android sources
+/android
 # Node
 /node_modules
 npm-debug.log
