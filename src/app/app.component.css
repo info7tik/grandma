@@ -6,6 +6,11 @@
 .t-center {
     text-align: center;
 }
+
 .nav-bar > * {
     padding: 5px;
+}
+
+.content {
+    margin-top: 20px;
 }

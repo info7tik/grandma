@@ -1,1 +1,3 @@
-<p>recipes works! {{type}}</p>
+<div *ngFor="let r of recipes" class="recipe-list">
+    <button class="recipe-button" (click)="selectRecipe(r)">{{r}}</button>
+</div>
