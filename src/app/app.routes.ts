@@ -7,5 +7,4 @@ export const routes: Routes = [
     { path: "recipes/:type", component: RecipesComponent },
     { path: "details/:id", component: RecipeDetailComponent },
     { path: "newrecipe", component: NewRecipeComponent },
-
 ];

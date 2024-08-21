@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../storage.service';
+import { Recipe, RecipeType } from '../types';
 
 @Component({
     selector: 'app-recipes',
@@ -12,17 +14,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RecipesComponent {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
-    recipes: string[] = ["carrot soup", "carrot cake", "crumble"];
+    private service = inject(StorageService)
+    recipes: Recipe[] = [];
     selectedRecipe: string = "";
-    type = "";
+    type: RecipeType = RecipeType.none;
 
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.type = params["type"];
+            this.recipes = this.service.getByType(this.type)
         });
     }
 
-    selectRecipe(recipeId: string) {
+    selectRecipe(recipeId: number) {
         this.router.navigate(['/details', recipeId]);
     }
 }

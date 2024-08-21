@@ -1,0 +1,7 @@
+.new-recipe > * {
+    margin-bottom: 10px;
+}
+
+.input-size {
+    width: 250px;
+}

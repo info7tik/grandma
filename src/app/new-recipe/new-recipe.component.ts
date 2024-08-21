@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
+import { RecipeType } from '../types';
 
 @Component({
     selector: 'app-new-recipe',
@@ -11,10 +13,15 @@ import { Router } from '@angular/router';
 })
 export class NewRecipeComponent {
     private router = inject(Router);
+    private service = inject(StorageService);
     recipeTitle = "";
-    recipeType = "";
+    recipeType = RecipeType.none;
 
+    constructor() {
+
+    }
     saveRecipe() {
-        this.router.navigate(['details/', this.recipeTitle]);
+        const recipeId = this.service.save(this.recipeTitle, this.recipeType);
+        this.router.navigate(['details/', recipeId]);
     }
 }

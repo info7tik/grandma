@@ -1,5 +1,10 @@
-<div>
-    <label>New Recipe Name</label><br/>
-    <input type="text" [(ngModel)]="recipeTitle"><br/>
+<div class="new-recipe">
+    <label>Recipe Title</label><br />
+    <input type="text" class="input-size" [(ngModel)]="recipeTitle"><br />
+    <label>Recipe Type</label><br />
+    <select class="input-size" [(ngModel)]="recipeType">
+        <option value="main-course">Main Course</option>
+        <option value="dessert">Dessert</option>
+    </select><br />
     <button (click)="saveRecipe()">Add to the Cookbook</button>
 </div>
