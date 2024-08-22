@@ -15,7 +15,7 @@ import { Ingredient, IngredientUnit, RecipeId, RecipeType, Step } from '../types
 export class RecipeDetailComponent {
     private route = inject(ActivatedRoute);
     private service = inject(StorageService);
-    private recipeId: RecipeId = 0;
+    private recipeId: RecipeId = "";
     recipeTitle = "";
     recipeType = RecipeType.none;
     ingredients: Ingredient[] = [];
@@ -28,7 +28,7 @@ export class RecipeDetailComponent {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.recipeId = parseInt(params["id"]);
+            this.recipeId = params["id"];
             this.loadRecipe();
         });
     }

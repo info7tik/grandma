@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../storage.service';
-import { Recipe, RecipeType } from '../types';
+import { Recipe, RecipeId, RecipeType } from '../types';
 
 @Component({
     selector: 'app-recipes',
@@ -26,7 +26,7 @@ export class RecipesComponent {
         });
     }
 
-    selectRecipe(recipeId: number) {
+    selectRecipe(recipeId: RecipeId) {
         this.router.navigate(['/details', recipeId]);
     }
 }

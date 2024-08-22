@@ -1,8 +1,8 @@
-export type RecipeId = number
-
 export interface RecipeStorage {
-    recipes: Recipe[];
+    recipes: RecipeMap;
 }
+
+export type RecipeMap = { [id: RecipeId]: Recipe; };
 
 export interface Recipe {
     id: RecipeId,
@@ -25,3 +25,5 @@ export enum IngredientUnit { "none", "grams", "millilitres" }
 export interface Step {
     description: string;
 }
+
+export type RecipeId = string;

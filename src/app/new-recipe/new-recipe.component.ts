@@ -21,7 +21,7 @@ export class NewRecipeComponent {
 
     }
     saveRecipe() {
-        const recipeId = this.service.save(this.recipeTitle, this.recipeType);
+        const recipeId = this.service.addRecipe(this.recipeTitle, this.recipeType);
         this.router.navigate(['details/', recipeId]);
     }
 }
