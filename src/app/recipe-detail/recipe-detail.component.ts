@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { Ingredient, IngredientUnit, RecipeId, RecipeType, Step } from '../types';
 
@@ -14,6 +14,7 @@ import { Ingredient, IngredientUnit, RecipeId, RecipeType, Step } from '../types
 })
 export class RecipeDetailComponent {
     private route = inject(ActivatedRoute);
+    private router = inject(Router)
     private service = inject(StorageService);
     private recipeId: RecipeId = "";
     recipeTitle = "";
@@ -55,5 +56,10 @@ export class RecipeDetailComponent {
         this.service.addIngredient(this.recipeId, ingredient);
         this.loadRecipe();
         this.hideNewIngredient();
+    }
+
+    deleteRecipe() {
+        this.service.removeRecipe(this.recipeId);
+        this.router.navigate(['recipes/', this.recipeType]);
     }
 }

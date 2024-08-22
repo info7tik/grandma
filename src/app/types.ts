@@ -10,6 +10,7 @@ export interface Recipe {
     type: RecipeType,
     ingredients: Ingredient[];
     steps: Step[];
+    cooking: CookingInfo;
 }
 
 export enum RecipeType { "none" = "none", "main-course" = "main-course", "dessert" = "dessert" }
@@ -24,6 +25,11 @@ export enum IngredientUnit { "none" = "none", "grams" = "grams", "millilitres" =
 
 export interface Step {
     description: string;
+}
+
+export interface CookingInfo {
+    time: number,
+    temperature: number;
 }
 
 export type RecipeId = string;
