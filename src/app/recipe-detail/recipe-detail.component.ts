@@ -23,7 +23,7 @@ export class RecipeDetailComponent {
     isNewIngredientShown = false;
     ingredientName = "";
     ingredientQuantity = 5;
-    ingredientUnit = IngredientUnit.none;
+    ingredientUnit: string = IngredientUnit[IngredientUnit.none];
     isNewStepShown = false;
 
     ngOnInit() {
@@ -50,7 +50,8 @@ export class RecipeDetailComponent {
     }
 
     addNewIngredient() {
-        const ingredient: Ingredient = { name: this.ingredientName, quantity: this.ingredientQuantity, unit: this.ingredientUnit };
+        const castedUnit = this.ingredientUnit as keyof typeof IngredientUnit;
+        const ingredient: Ingredient = { name: this.ingredientName, quantity: this.ingredientQuantity, unit: IngredientUnit[castedUnit] };
         this.service.addIngredient(this.recipeId, ingredient);
         this.loadRecipe();
         this.hideNewIngredient();

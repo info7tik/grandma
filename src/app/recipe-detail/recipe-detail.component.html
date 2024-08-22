@@ -3,9 +3,7 @@
 <div>
     <h3>Ingredients</h3>
     <div>
-        <ul>
-            <li *ngFor="let ingredient of ingredients">{{ingredient.name}}</li>
-        </ul>
+        <div *ngFor="let ingredient of ingredients">{{ingredient.name}}</div>
     </div>
     <button (click)="showNewIngredient()">New Ingredient</button>
     <div *ngIf="isNewIngredientShown">

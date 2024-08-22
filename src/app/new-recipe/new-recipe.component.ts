@@ -15,13 +15,13 @@ export class NewRecipeComponent {
     private router = inject(Router);
     private service = inject(StorageService);
     recipeTitle = "";
-    recipeType = RecipeType.none;
+    recipeType: string = RecipeType[RecipeType['main-course']];
 
-    constructor() {
+    constructor() { }
 
-    }
     saveRecipe() {
-        const recipeId = this.service.addRecipe(this.recipeTitle, this.recipeType);
+        const castedType = this.recipeType as keyof typeof RecipeType;
+        const recipeId = this.service.addRecipe(this.recipeTitle, RecipeType[castedType]);
         this.router.navigate(['details/', recipeId]);
     }
 }

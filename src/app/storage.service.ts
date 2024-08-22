@@ -10,7 +10,7 @@ export class StorageService {
     private storageData: StorageData = this.EMPTY_STORAGE_DATA;
 
     constructor() {
-        localStorage.clear();
+        // localStorage.clear();
         this.loadStorageData();
     }
 
@@ -31,18 +31,21 @@ export class StorageService {
         if (foundRecipes.length > 0) {
             return foundRecipes;
         } else {
-            throw Error("no recipe with type '" + type + "'");
+            console.log(`no recipe with type '${type}'`);
+            return [];
         }
     }
 
     addIngredient(recipeId: RecipeId, ingredient: Ingredient) {
         let recipe = this.getById(recipeId);
+        console.log(`add ingredient '${ingredient.name}' to recipe '${recipeId}'`)
         recipe.ingredients.push(ingredient);
         this.saveStorageData();
     }
 
     addRecipe(recipeTitle: string, recipeType: RecipeType): RecipeId {
         const recipeId = SHA('sha256').update(recipeTitle).digest("hex");
+        console.log(`add recipe '${recipeTitle}' with id '${recipeId}' and type '${recipeType}'`);
         this.storageData.recipes[recipeId] = { id: recipeId, title: recipeTitle, type: recipeType, ingredients: [], steps: [] };
         this.saveStorageData();
         return recipeId;

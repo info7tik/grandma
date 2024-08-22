@@ -12,7 +12,7 @@ export interface Recipe {
     steps: Step[];
 }
 
-export enum RecipeType { "none", "main-course", "dessert" }
+export enum RecipeType { "none" = "none", "main-course" = "main-course", "dessert" = "dessert" }
 
 export interface Ingredient {
     name: string,
@@ -20,7 +20,7 @@ export interface Ingredient {
     unit: IngredientUnit;
 }
 
-export enum IngredientUnit { "none", "grams", "millilitres" }
+export enum IngredientUnit { "none" = "none", "grams" = "grams", "millilitres" = "millilitres" }
 
 export interface Step {
     description: string;
