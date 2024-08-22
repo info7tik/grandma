@@ -1,2 +1,32 @@
 <h2>{{recipeTitle}}</h2>
-<span>{{recipeType}}</span>
+<div>{{recipeType}}</div>
+<div>
+    <h3>Ingredients</h3>
+    <div>
+        <ul>
+            <li *ngFor="let ingredient of ingredients">{{ingredient.name}}</li>
+        </ul>
+    </div>
+    <button (click)="showNewIngredient()">New Ingredient</button>
+    <div *ngIf="isNewIngredientShown">
+        <label>Which Ingredient</label><br />
+        <input type="text" [(ngModel)]="ingredientName"><br />
+        <label>Quantity</label><br />
+        <input type="number" [(ngModel)]="ingredientQuantity"><br />
+        <label>Unit</label><br />
+        <select [(ngModel)]="ingredientUnit">
+            <option value="none">None</option>
+            <option value="grams">grams</option>
+            <option value="millilitres">millilitres</option>
+        </select><br />
+        <button (click)="addNewIngredient()">Add</button>
+        <button (click)="hideNewIngredient()">Cancel</button>
+    </div>
+</div>
+<div>
+    <h3>Steps</h3>
+    <div>
+
+    </div>
+    <button>New Step</button>
+</div>

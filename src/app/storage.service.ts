@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Recipe, RecipeType, RecipeStorage as StorageData } from './types';
+import { Ingredient, Recipe, RecipeId, RecipeType, RecipeStorage as StorageData } from './types';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StorageService {
     private RECIPES_KEY = "recipes";
+    private EMPTY_STORAGE_DATA = { recipes: [] };
+    private storageData: StorageData = this.EMPTY_STORAGE_DATA;
+
     constructor() {
+        // localStorage.clear()
+        this.loadStorageData();
     }
 
     getAll(): Recipe[] {
-        return this.loadRecipes().recipes;
+        return this.storageData.recipes;
     }
 
-    getById(id: number): Recipe {
-        const foundRecipe = this.loadRecipes().recipes.filter(r => r.id === id);
+    getById(id: RecipeId): Recipe {
+        const foundRecipe = this.storageData.recipes.filter(r => r.id === id);
         if (foundRecipe.length > 0) {
             return foundRecipe[0];
         } else {
@@ -23,7 +28,7 @@ export class StorageService {
     }
 
     getByType(type: RecipeType): Recipe[] {
-        const foundRecipes = this.loadRecipes().recipes.filter(r => r.type === type);
+        const foundRecipes = this.storageData.recipes.filter(r => r.type === type);
         if (foundRecipes.length > 0) {
             return foundRecipes;
         } else {
@@ -31,24 +36,31 @@ export class StorageService {
         }
     }
 
+    addIngredient(recipeId: RecipeId, ingredient: Ingredient) {
+        let recipe = this.getById(recipeId);
+        recipe.ingredients.push(ingredient);
+        this.saveStorageData();
+    }
+
+    // TODO remplace save() by addRecipe (see below addIngredient())
     save(recipeTitle: string, recipeType: RecipeType): number {
-        let storageData = this.loadRecipes();
-        const recipeId = storageData.recipes.length;
-        storageData.recipes.push({ id: recipeId, title: recipeTitle, type: recipeType });
-        this.saveRecipes(storageData);
+        const recipeId = this.storageData.recipes.length;
+        this.storageData.recipes.push({ id: recipeId, title: recipeTitle, type: recipeType, ingredients: [], steps: [] });
+        this.saveStorageData();
         return recipeId;
     }
 
-    private loadRecipes(): StorageData {
+    private loadStorageData(): StorageData {
         const storageData = localStorage.getItem(this.RECIPES_KEY);
         if (storageData === null) {
-            return { recipes: [] };
+            this.storageData = this.EMPTY_STORAGE_DATA;
         } else {
-            return JSON.parse(storageData);
+            this.storageData = JSON.parse(storageData);
         }
+        return this.storageData;
     }
 
-    private saveRecipes(data: StorageData) {
-        localStorage.setItem(this.RECIPES_KEY, JSON.stringify(data));
+    private saveStorageData() {
+        localStorage.setItem(this.RECIPES_KEY, JSON.stringify(this.storageData));
     }
 }
