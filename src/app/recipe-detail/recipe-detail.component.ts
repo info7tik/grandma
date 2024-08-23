@@ -36,6 +36,12 @@ export class RecipeDetailComponent {
         });
     }
 
+    private resetNewIngredient() {
+        this.ingredientName = "";
+        this.ingredientQuantity = 5;
+        this.ingredientUnit = IngredientUnit.none;
+    }
+
     private loadRecipe() {
         const recipe = this.service.getById(this.recipeId);
         this.recipeTitle = recipe.title;
@@ -47,6 +53,7 @@ export class RecipeDetailComponent {
     }
 
     showNewIngredient() {
+        this.resetNewIngredient();
         this.isNewIngredientShown = true;
     }
 

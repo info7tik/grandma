@@ -1,14 +1,14 @@
 <h2>{{recipeTitle}}</h2>
 <div>{{recipeType}}</div>
-<div>
+ <div>
     <h3>Ingredients</h3>
     <div class="bottom-space">
         <div *ngFor="let ingredient of ingredients">
             <div *ngIf="ingredient.unit === 'none'">
-                {{ingredient.name}} {{ingredient.quantity}}
+                {{ingredient.name}} {{ingredient.quantity}} <button>update</button>
             </div>
             <div *ngIf="ingredient.unit !== 'none'">
-                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
+                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}} <button>update</button>
             </div>
         </div>
     </div>
@@ -38,8 +38,8 @@
 <div>
     <h3>Cooking</h3>
     <div class="bottom-space">
-        <div>Cooking Time: {{recipeCookingTime}} minutes</div>
-        <div>Temperature: {{recipeTemperature}}</div>
+        <div>Cooking Time: {{recipeCookingTime}} minutes <button>update</button></div>
+        <div>Temperature: {{recipeTemperature}} <button>update</button></div>
     </div>
     <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 </div>
