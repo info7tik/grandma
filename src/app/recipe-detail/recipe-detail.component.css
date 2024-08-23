@@ -1,8 +1,18 @@
-.ingredients > * {
-    margin-bottom: 5px;
+.bottom-space {
+    margin-bottom: 20px;
 }
 
-button {
+.primary-button {
     width: 200px;
     height: 30px;
+}
+
+.secondary-button {
+    width: 100px;
+    height: 20px;
+}
+
+.input-size {
+    width: 100px;
+    margin-bottom: 10px;
 }

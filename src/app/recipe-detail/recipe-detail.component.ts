@@ -14,11 +14,13 @@ import { Ingredient, IngredientUnit, RecipeId, RecipeType, Step } from '../types
 })
 export class RecipeDetailComponent {
     private route = inject(ActivatedRoute);
-    private router = inject(Router)
+    private router = inject(Router);
     private service = inject(StorageService);
     private recipeId: RecipeId = "";
     recipeTitle = "";
     recipeType = RecipeType.none;
+    recipeTemperature = 0;
+    recipeCookingTime = 0;
     ingredients: Ingredient[] = [];
     steps: Step[] = [];
     isNewIngredientShown = false;
@@ -38,6 +40,8 @@ export class RecipeDetailComponent {
         const recipe = this.service.getById(this.recipeId);
         this.recipeTitle = recipe.title;
         this.recipeType = recipe.type;
+        this.recipeTemperature = recipe.cooking.temperature;
+        this.recipeCookingTime = recipe.cooking.time;
         this.ingredients = recipe.ingredients;
         this.steps = recipe.steps;
     }

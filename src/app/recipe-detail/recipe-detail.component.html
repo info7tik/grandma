@@ -2,30 +2,30 @@
 <div>{{recipeType}}</div>
 <div>
     <h3>Ingredients</h3>
-    <div class="ingredients">
+    <div class="bottom-space">
         <div *ngFor="let ingredient of ingredients">
-            <span *ngIf="ingredient.unit === 'none'">
+            <div *ngIf="ingredient.unit === 'none'">
                 {{ingredient.name}} {{ingredient.quantity}}
-            </span>
-            <span *ngIf="ingredient.unit !== 'none'">
+            </div>
+            <div *ngIf="ingredient.unit !== 'none'">
                 {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
-            </span>
+            </div>
         </div>
     </div>
-    <button (click)="showNewIngredient()">New Ingredient</button>
-    <div *ngIf="isNewIngredientShown">
+    <button class="primary-button" (click)="showNewIngredient()">New Ingredient</button>
+    <div *ngIf="isNewIngredientShown" style="padding: 5px;">
         <label>Which Ingredient</label><br />
-        <input type="text" [(ngModel)]="ingredientName"><br />
+        <input type="text" class="input-size" [(ngModel)]="ingredientName"><br />
         <label>Quantity</label><br />
-        <input type="number" [(ngModel)]="ingredientQuantity"><br />
+        <input type="number" class="input-size" [(ngModel)]="ingredientQuantity"><br />
         <label>Unit</label><br />
-        <select [(ngModel)]="ingredientUnit">
+        <select class="input-size" [(ngModel)]="ingredientUnit">
             <option value="none">None</option>
             <option value="grams">grams</option>
             <option value="millilitres">millilitres</option>
         </select><br />
-        <button (click)="addNewIngredient()">Add</button>
-        <button (click)="hideNewIngredient()">Cancel</button>
+        <button class="secondary-button" (click)="addNewIngredient()">Add</button>
+        <button class="secondary-button" (click)="hideNewIngredient()">Cancel</button>
     </div>
 </div>
 <div>
@@ -33,12 +33,13 @@
     <div>
 
     </div>
-    <button>New Step</button>
+    <button class="primary-button">New Step</button>
 </div>
 <div>
     <h3>Cooking</h3>
     <div>
-
+        <div>Temperature: {{recipeTemperature}}</div>
+        <div>Cooking Time: {{recipeCookingTime}}</div>
     </div>
-    <button (click)="deleteRecipe()">Delete this Recipe</button>
+    <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 </div>
