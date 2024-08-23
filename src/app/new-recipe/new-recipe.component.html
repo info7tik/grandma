@@ -6,5 +6,9 @@
         <option value="main-course">Main Course</option>
         <option value="dessert">Dessert</option>
     </select><br />
+    <label>Recipe Cooking Time (minutes)</label><br />
+    <input type="number" class="input-size" [(ngModel)]="recipeCookingTime"><br />
+    <label>Recipe Cooking Temperature</label><br />
+    <input type="number" class="input-size" [(ngModel)]="recipeCookingTemperature"><br />
     <button (click)="saveRecipe()">Add to the Cookbook</button>
 </div>

@@ -43,7 +43,7 @@ export class StorageService {
         this.saveStorageData();
     }
 
-    addRecipe(recipeTitle: string, recipeType: RecipeType): RecipeId {
+    addRecipe(recipeTitle: string, recipeType: RecipeType, cookingTime: number, cookingTemperature: number): RecipeId {
         if (recipeTitle.length === 0) {
             throw "can not add recipe: missing title";
         }
@@ -55,7 +55,7 @@ export class StorageService {
             type: recipeType,
             ingredients: [],
             steps: [],
-            cooking: { time: 0, temperature: 0 }
+            cooking: { time: cookingTime, temperature: cookingTemperature }
         };
         this.saveStorageData();
         return recipeId;

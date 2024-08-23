@@ -16,12 +16,14 @@ export class NewRecipeComponent {
     private service = inject(StorageService);
     recipeTitle = "";
     recipeType: string = RecipeType[RecipeType['main-course']];
+    recipeCookingTime: number = 0;
+    recipeCookingTemperature: number = 0;
 
     constructor() { }
 
     saveRecipe() {
         const castedType = this.recipeType as keyof typeof RecipeType;
-        const recipeId = this.service.addRecipe(this.recipeTitle, RecipeType[castedType]);
+        const recipeId = this.service.addRecipe(this.recipeTitle, RecipeType[castedType], this.recipeCookingTime, this.recipeCookingTemperature);
         this.router.navigate(['details/', recipeId]);
     }
 }
