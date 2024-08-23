@@ -22,7 +22,7 @@ export class StorageService {
         if (id in this.storageData.recipes) {
             return this.storageData.recipes[id];
         } else {
-            throw Error("no recipe with id '" + id + "'");
+            throw `no recipe with id '${id}'`;
         }
     }
 
@@ -44,6 +44,9 @@ export class StorageService {
     }
 
     addRecipe(recipeTitle: string, recipeType: RecipeType): RecipeId {
+        if (recipeTitle.length === 0) {
+            throw "can not add recipe: missing title";
+        }
         const recipeId = SHA('sha256').update(recipeTitle).digest("hex");
         console.log(`add recipe '${recipeTitle}' with id '${recipeId}' and type '${recipeType}'`);
         this.storageData.recipes[recipeId] = {
@@ -59,6 +62,9 @@ export class StorageService {
     }
 
     removeRecipe(recipeId: RecipeId) {
+        if (recipeId.length === 0) {
+            throw "can not remove recipe: no recipe ID";
+        }
         delete this.storageData.recipes[recipeId];
         this.saveStorageData();
     }

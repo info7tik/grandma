@@ -2,8 +2,15 @@
 <div>{{recipeType}}</div>
 <div>
     <h3>Ingredients</h3>
-    <div>
-        <div *ngFor="let ingredient of ingredients">{{ingredient.name}}</div>
+    <div class="ingredients">
+        <div *ngFor="let ingredient of ingredients">
+            <span *ngIf="ingredient.unit === 'none'">
+                {{ingredient.name}} {{ingredient.quantity}}
+            </span>
+            <span *ngIf="ingredient.unit !== 'none'">
+                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
+            </span>
+        </div>
     </div>
     <button (click)="showNewIngredient()">New Ingredient</button>
     <div *ngIf="isNewIngredientShown">

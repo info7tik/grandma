@@ -1,0 +1,8 @@
+.ingredients > * {
+    margin-bottom: 5px;
+}
+
+button {
+    width: 200px;
+    height: 30px;
+}
