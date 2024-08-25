@@ -20,8 +20,15 @@ export class IngredientFormComponent {
     ingredientQuantity = 5;
     ingredientUnit: string = IngredientUnit[IngredientUnit.none];
 
+    private resetFields() {
+        this.ingredientName = "";
+        this.ingredientQuantity = 5;
+        this.ingredientUnit = IngredientUnit[IngredientUnit.none];
+    }
+
     showNewForm() {
         this.isNewIngredient = true;
+        this.resetFields();
         this.dialog.nativeElement.show();
     }
 
