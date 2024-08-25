@@ -45,12 +45,17 @@ export class StorageService {
         if (!this.ingredientExists(recipe.ingredients, ingredient.name)) {
             console.log(`add ingredient '${ingredient.name}' to '${recipeId}'`);
             recipe.ingredients.push(ingredient);
+            recipe.ingredients.sort(this.compareIngredient)
             this.saveStorageData();
             return true;
         } else {
             console.log(`ingredient '${ingredient.name}' is already recipe '${recipeId}'`);
             return false;
         }
+    }
+
+    private compareIngredient(a: Ingredient, b: Ingredient): number {
+        return a.name.localeCompare(b.name);
     }
 
     updateIngredient(recipeId: RecipeId, ingredient: Ingredient): boolean {
