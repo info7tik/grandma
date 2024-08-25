@@ -1,0 +1,10 @@
+<dialog #dialog>
+    <label>Cooking Time (minutes)</label><br />
+    <input type="text" class="input-size" [(ngModel)]="cookingTime"><br />
+    <label>Cooking Temperature</label><br />
+    <input type="number" class="input-size" [(ngModel)]="cookingTemperature"><br />
+    <div>
+        <button (click)="updateCookingInformation()">Ok</button>
+        <button (click)="cancel()">Cancel</button>
+    </div>
+</dialog>

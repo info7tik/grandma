@@ -10,11 +10,11 @@
             <div *ngIf="ingredient.unit !== 'none'">
                 {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
             </div>
-            <button class="secondary-button" (click)="ingredientForm.showUpdateForm(ingredients, ingredient)">Update</button>
+            <button class="secondary-button" (click)="ingredientForm.showUpdateForm(ingredient)">Update</button>
             <button class="secondary-button" (click)="deleteIngredient(ingredient.name)">Delete</button>
+        </div>
     </div>
-    </div>
-    <button class="primary-button" (click)="ingredientForm.showNewForm(ingredients)">New Ingredient</button>
+    <button class="primary-button" (click)="ingredientForm.showNewForm()">New Ingredient</button>
     <app-ingredient-form [recipeId]="recipeId" #ingredientForm></app-ingredient-form>
 </div>
 <div>
@@ -25,10 +25,15 @@
     <button class="primary-button">New Step</button>
 </div>
 <div>
-    <h3>Cooking</h3>
+    <h3>
+        Cooking
+        <button class="secondary-button"
+            (click)="cookingForm.show(recipeCookingTime, recipeTemperature)">Update</button>
+    </h3>
     <div class="bottom-space">
-        <div>Cooking Time: {{recipeCookingTime}} minutes <button>update</button></div>
-        <div>Temperature: {{recipeTemperature}} <button>update</button></div>
+        <div>Cooking Time: {{recipeCookingTime}} minutes</div>
+        <div>Temperature: {{recipeTemperature}}</div>
     </div>
+    <app-cooking-form [recipeId]="recipeId" #cookingForm></app-cooking-form>
     <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 </div>

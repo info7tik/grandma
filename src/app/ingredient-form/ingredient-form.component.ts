@@ -15,24 +15,21 @@ export class IngredientFormComponent {
     private service = inject(StorageService);
     @ViewChild("dialog") dialog!: ElementRef;
     @Input() recipeId: string = "";
-    private recipeIngredients: Ingredient[] = [];
     private isNewIngredient = false;
     ingredientName = "";
     ingredientQuantity = 5;
     ingredientUnit: string = IngredientUnit[IngredientUnit.none];
 
-    showNewForm(ingredients: Ingredient[]) {
+    showNewForm() {
         this.isNewIngredient = true;
-        this.recipeIngredients = ingredients;
         this.dialog.nativeElement.show();
     }
 
-    showUpdateForm(ingredients: Ingredient[], ingredient: Ingredient) {
+    showUpdateForm(ingredient: Ingredient) {
         this.isNewIngredient = false;
         this.ingredientName = ingredient.name;
         this.ingredientQuantity = ingredient.quantity;
         this.ingredientUnit = ingredient.unit;
-        this.recipeIngredients = ingredients;
         this.dialog.nativeElement.show();
     }
 

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookingFormComponent } from "../cooking-form/cooking-form.component";
 import { IngredientFormComponent } from "../ingredient-form/ingredient-form.component";
 import { StorageService } from '../storage.service';
 import { Ingredient, RecipeId, RecipeType, Step } from '../types';
@@ -9,7 +10,7 @@ import { Ingredient, RecipeId, RecipeType, Step } from '../types';
 @Component({
     selector: 'app-recipe-detail',
     standalone: true,
-    imports: [CommonModule, FormsModule, IngredientFormComponent],
+    imports: [CommonModule, FormsModule, IngredientFormComponent, CookingFormComponent],
     templateUrl: './recipe-detail.component.html',
     styleUrl: './recipe-detail.component.css'
 })
@@ -18,7 +19,6 @@ export class RecipeDetailComponent {
     private router = inject(Router);
     private service = inject(StorageService);
     recipeId: RecipeId = "";
-    @ViewChild("ingredientForm") ingredientForm!: IngredientFormComponent;
     recipeTitle = "";
     recipeType = RecipeType.none;
     recipeTemperature = 0;
