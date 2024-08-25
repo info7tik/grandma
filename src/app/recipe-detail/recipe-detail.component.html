@@ -1,32 +1,21 @@
 <h2>{{recipeTitle}}</h2>
 <div>{{recipeType}}</div>
- <div>
+<div>
     <h3>Ingredients</h3>
     <div class="bottom-space">
         <div *ngFor="let ingredient of ingredients">
             <div *ngIf="ingredient.unit === 'none'">
-                {{ingredient.name}} {{ingredient.quantity}} <button>update</button>
+                {{ingredient.name}} {{ingredient.quantity}}
             </div>
             <div *ngIf="ingredient.unit !== 'none'">
-                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}} <button>update</button>
+                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
             </div>
-        </div>
+            <button class="secondary-button" (click)="ingredientForm.showUpdateForm(ingredients, ingredient)">Update</button>
+            <button class="secondary-button" (click)="deleteIngredient(ingredient.name)">Delete</button>
     </div>
-    <button class="primary-button" (click)="showNewIngredient()">New Ingredient</button>
-    <div *ngIf="isNewIngredientShown" style="padding: 5px;">
-        <label>Which Ingredient</label><br />
-        <input type="text" class="input-size" [(ngModel)]="ingredientName"><br />
-        <label>Quantity</label><br />
-        <input type="number" class="input-size" [(ngModel)]="ingredientQuantity"><br />
-        <label>Unit</label><br />
-        <select class="input-size" [(ngModel)]="ingredientUnit">
-            <option value="none">None</option>
-            <option value="grams">grams</option>
-            <option value="millilitres">millilitres</option>
-        </select><br />
-        <button class="secondary-button" (click)="addNewIngredient()">Add</button>
-        <button class="secondary-button" (click)="hideNewIngredient()">Cancel</button>
     </div>
+    <button class="primary-button" (click)="ingredientForm.showNewForm(ingredients)">New Ingredient</button>
+    <app-ingredient-form [recipeId]="recipeId" #ingredientForm></app-ingredient-form>
 </div>
 <div>
     <h3>Steps</h3>

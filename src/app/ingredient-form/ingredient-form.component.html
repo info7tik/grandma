@@ -1,0 +1,16 @@
+<dialog #dialog>
+    <label>Which Ingredient</label><br />
+    <input type="text" class="input-size" [(ngModel)]="ingredientName"><br />
+    <label>Quantity</label><br />
+    <input type="number" class="input-size" [(ngModel)]="ingredientQuantity"><br />
+    <label>Unit</label><br />
+    <select class="input-size" [(ngModel)]="ingredientUnit">
+        <option value="none">None</option>
+        <option value="grams">grams</option>
+        <option value="millilitres">millilitres</option>
+    </select><br />
+    <div>
+        <button (click)="addNewIngredient()">Ok</button>
+        <button (click)="cancel()">Cancel</button>
+    </div>
+</dialog>

@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IngredientFormComponent } from "../ingredient-form/ingredient-form.component";
 import { StorageService } from '../storage.service';
-import { Ingredient, IngredientUnit, RecipeId, RecipeType, Step } from '../types';
+import { Ingredient, RecipeId, RecipeType, Step } from '../types';
 
 @Component({
     selector: 'app-recipe-detail',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, IngredientFormComponent],
     templateUrl: './recipe-detail.component.html',
     styleUrl: './recipe-detail.component.css'
 })
@@ -16,7 +17,8 @@ export class RecipeDetailComponent {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
     private service = inject(StorageService);
-    private recipeId: RecipeId = "";
+    recipeId: RecipeId = "";
+    @ViewChild("ingredientForm") ingredientForm!: IngredientFormComponent;
     recipeTitle = "";
     recipeType = RecipeType.none;
     recipeTemperature = 0;
@@ -24,9 +26,6 @@ export class RecipeDetailComponent {
     ingredients: Ingredient[] = [];
     steps: Step[] = [];
     isNewIngredientShown = false;
-    ingredientName = "";
-    ingredientQuantity = 5;
-    ingredientUnit: string = IngredientUnit[IngredientUnit.none];
     isNewStepShown = false;
 
     ngOnInit() {
@@ -36,11 +35,6 @@ export class RecipeDetailComponent {
         });
     }
 
-    private resetNewIngredient() {
-        this.ingredientName = "";
-        this.ingredientQuantity = 5;
-        this.ingredientUnit = IngredientUnit.none;
-    }
 
     private loadRecipe() {
         const recipe = this.service.getById(this.recipeId);
@@ -52,25 +46,12 @@ export class RecipeDetailComponent {
         this.steps = recipe.steps;
     }
 
-    showNewIngredient() {
-        this.resetNewIngredient();
-        this.isNewIngredientShown = true;
-    }
-
-    hideNewIngredient() {
-        this.isNewIngredientShown = false;
-    }
-
-    addNewIngredient() {
-        const castedUnit = this.ingredientUnit as keyof typeof IngredientUnit;
-        const ingredient: Ingredient = { name: this.ingredientName, quantity: this.ingredientQuantity, unit: IngredientUnit[castedUnit] };
-        this.service.addIngredient(this.recipeId, ingredient);
-        this.loadRecipe();
-        this.hideNewIngredient();
-    }
-
     deleteRecipe() {
         this.service.removeRecipe(this.recipeId);
         this.router.navigate(['recipes/', this.recipeType]);
+    }
+
+    deleteIngredient(ingredientName: string) {
+        this.service.deleteIngredient(this.recipeId, ingredientName);
     }
 }

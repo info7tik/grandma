@@ -36,11 +36,62 @@ export class StorageService {
         }
     }
 
-    addIngredient(recipeId: RecipeId, ingredient: Ingredient) {
+    addIngredient(recipeId: RecipeId, ingredient: Ingredient): boolean {
+        if (recipeId.length === 0 || ingredient.name.length === 0) {
+            console.log(`can not add ingredient '${ingredient.name}' to '${recipeId}': field is empty`);
+            return false;
+        }
         let recipe = this.getById(recipeId);
-        console.log(`add ingredient '${ingredient.name}' to recipe '${recipeId}'`);
-        recipe.ingredients.push(ingredient);
-        this.saveStorageData();
+        if (!this.ingredientExists(recipe.ingredients, ingredient.name)) {
+            console.log(`add ingredient '${ingredient.name}' to '${recipeId}'`);
+            recipe.ingredients.push(ingredient);
+            this.saveStorageData();
+            return true;
+        } else {
+            console.log(`ingredient '${ingredient.name}' is already recipe '${recipeId}'`);
+            return false;
+        }
+    }
+
+    updateIngredient(recipeId: RecipeId, ingredient: Ingredient): boolean {
+        if (recipeId.length === 0) {
+            console.log(`can not update ingredient: recipe ID is empty`);
+            return false;
+        }
+        let recipe = this.getById(recipeId);
+        let existingIngredient = this.getIngredientByName(recipe.ingredients, ingredient.name);
+        if (existingIngredient === undefined) {
+            console.log(`can not update ingredient of '${recipeId}': ingredient not found`);
+            return false;
+        } else {
+            existingIngredient.quantity = ingredient.quantity;
+            existingIngredient.unit = ingredient.unit;
+            this.saveStorageData();
+            return true;
+        }
+    }
+
+    deleteIngredient(recipeId: RecipeId, ingredientName: string): boolean {
+        let recipe = this.getById(recipeId);
+        const existingIngredient = this.getIngredientByName(recipe.ingredients, ingredientName);
+        if (existingIngredient === undefined) {
+            console.log(`can not delete ingredient of '${recipeId}': ingredient not found`);
+            return false;
+        } else {
+            const index = recipe.ingredients.indexOf(existingIngredient);
+            recipe.ingredients.splice(index, 1);
+            this.saveStorageData();
+            return true;
+        }
+    }
+
+    private ingredientExists(recipeIngredients: Ingredient[], ingredientName: string): boolean {
+        const found = this.getIngredientByName(recipeIngredients, ingredientName);
+        return found !== undefined;
+    }
+
+    private getIngredientByName(recipeIngredients: Ingredient[], ingredientName: string): Ingredient | undefined {
+        return recipeIngredients.find(rI => rI.name == ingredientName);
     }
 
     addRecipe(recipeTitle: string, recipeType: RecipeType, cookingTime: number, cookingTemperature: number): RecipeId {
