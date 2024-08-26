@@ -36,7 +36,7 @@ export class RecipeDetailComponent {
     }
 
 
-    private loadRecipe() {
+    loadRecipe() {
         const recipe = this.service.getById(this.recipeId);
         this.recipeTitle = recipe.title;
         this.recipeType = recipe.type;

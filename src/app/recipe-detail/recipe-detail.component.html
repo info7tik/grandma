@@ -34,6 +34,6 @@
         <div>Cooking Time: {{recipeCookingTime}} minutes</div>
         <div>Temperature: {{recipeTemperature}}</div>
     </div>
-    <app-cooking-form [recipeId]="recipeId" #cookingForm></app-cooking-form>
+    <app-cooking-form [recipeId]="recipeId" (updated)="loadRecipe()" #cookingForm></app-cooking-form>
     <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 </div>

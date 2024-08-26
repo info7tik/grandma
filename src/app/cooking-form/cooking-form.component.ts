@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
 @Component({
@@ -11,8 +12,10 @@ import { StorageService } from '../storage.service';
 })
 export class CookingFormComponent {
     private service = inject(StorageService);
+    private router = inject(Router);
     @ViewChild("dialog") dialog!: ElementRef;
     @Input() recipeId: string = "";
+    @Output() updated = new EventEmitter<string>();
     cookingTime: number = 0;
     cookingTemperature: number = 0;
 
@@ -23,7 +26,10 @@ export class CookingFormComponent {
     }
 
     updateCookingInformation() {
-        //TODO
+        const isUpdated = this.service.updateCookingInformation(this.recipeId, this.cookingTime, this.cookingTemperature);
+        if (isUpdated) {
+            this.updated.emit(this.recipeId);
+        }
         this.dialog.nativeElement.close();
     }
 

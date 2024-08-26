@@ -125,6 +125,18 @@ export class StorageService {
         this.saveStorageData();
     }
 
+    updateCookingInformation(recipeId: RecipeId, cookingTime: number, cookingTemperature: number) {
+        if (recipeId.length === 0) {
+            console.log(`can not update cooking information: recipe ID is empty`);
+            return false;
+        }
+        let recipe = this.getById(recipeId);
+        recipe.cooking.time = cookingTime;
+        recipe.cooking.temperature = cookingTemperature;
+        this.saveStorageData();
+        return true;
+    }
+
     private loadStorageData(): StorageData {
         const storageData = localStorage.getItem(this.RECIPES_KEY);
         if (storageData === null) {
