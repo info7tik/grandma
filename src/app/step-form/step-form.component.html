@@ -1,0 +1,10 @@
+<dialog #dialog>
+    <label>Step Number</label><br />
+    <input type="number" class="input-size" [(ngModel)]="stepNumber"><br />
+    <label>Step Description</label><br />
+    <textarea rows="5" cols="50" [(ngModel)]="description"></textarea><br />
+    <div>
+        <button (click)="addNewStep()">Ok</button>
+        <button (click)="cancel()">Cancel</button>
+    </div>
+</dialog>

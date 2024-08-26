@@ -19,10 +19,11 @@
 </div>
 <div>
     <h3>Steps</h3>
-    <div>
-
+    <div *ngFor="let step of steps; index as order">
+        <div>{{order + 1}} - {{step.description}}</div>
     </div>
-    <button class="primary-button">New Step</button>
+    <button class="primary-button" (click)="stepForm.showNewForm()">New Step</button>
+    <app-step-form [recipeId]="recipeId" #stepForm></app-step-form>
 </div>
 <div>
     <h3>

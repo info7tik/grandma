@@ -137,6 +137,18 @@ export class StorageService {
         return true;
     }
 
+    addStep(recipeId: RecipeId, stepOrder: number, description: string): boolean {
+        if (recipeId.length === 0) {
+            console.log(`can not add new step: recipe ID is empty`);
+            return false;
+        }
+        stepOrder = stepOrder < 1 ? 1 : stepOrder;
+        let recipe = this.getById(recipeId);
+        recipe.steps.splice(stepOrder - 1, 0, { "description": description });
+        this.saveStorageData();
+        return true;
+    }
+
     private loadStorageData(): StorageData {
         const storageData = localStorage.getItem(this.RECIPES_KEY);
         if (storageData === null) {
