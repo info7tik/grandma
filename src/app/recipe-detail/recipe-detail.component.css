@@ -2,6 +2,10 @@
     margin-bottom: 20px;
 }
 
+.ingredients {
+    margin: auto;
+}
+
 .primary-button {
     width: 200px;
     height: 30px;

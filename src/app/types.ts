@@ -33,3 +33,13 @@ export interface CookingInfo {
 }
 
 export type RecipeId = string;
+
+export interface InputWithName {
+    html: HTMLInputElement,
+    name: string;
+}
+
+export interface InputWithOrder {
+    html: HTMLInputElement,
+    order: number;
+}

@@ -149,6 +149,25 @@ export class StorageService {
         return true;
     }
 
+    updateStep(recipeId: RecipeId, stepIndex: number, newOrder: number, newDescription: string): boolean {
+        if (recipeId.length === 0) {
+            console.log(`can not update step: recipe ID is empty`);
+            return false;
+        }
+        let recipe = this.getById(recipeId);
+        if (stepIndex < recipe.steps.length) {
+            const existingStep = recipe.steps[stepIndex];
+            recipe.steps.splice(newOrder - 1, 0, { "description": newDescription });
+            const existingStepIndex = recipe.steps.indexOf(existingStep);
+            recipe.steps.splice(existingStepIndex, 1);
+            this.saveStorageData()
+            return true;
+        } else {
+            console.log(`can not update step: index ${stepIndex} is too large`);
+            return false;
+        }
+    }
+
     private loadStorageData(): StorageData {
         const storageData = localStorage.getItem(this.RECIPES_KEY);
         if (storageData === null) {

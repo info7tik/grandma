@@ -3,26 +3,44 @@
 <div>
     <h3>Ingredients</h3>
     <div class="bottom-space">
-        <div *ngFor="let ingredient of ingredients">
-            <div *ngIf="ingredient.unit === 'none'">
-                {{ingredient.name}} {{ingredient.quantity}}
-            </div>
-            <div *ngIf="ingredient.unit !== 'none'">
-                {{ingredient.name}} {{ingredient.quantity}} {{ingredient.unit}}
-            </div>
-            <button class="secondary-button" (click)="ingredientForm.showUpdateForm(ingredient)">Update</button>
-            <button class="secondary-button" (click)="deleteIngredient(ingredient.name)">Delete</button>
-        </div>
+        <table class="ingredients">
+            <tr *ngFor="let ingredient of ingredients">
+                <td>{{ingredient.name}}</td>
+                <td *ngIf="ingredient.unit === 'none'">{{ingredient.quantity}}</td>
+                <td *ngIf="ingredient.unit !== 'none'">{{ingredient.quantity}} {{ingredient.unit}}</td>
+                <td><input type="checkbox" (change)="selectIngredient($event, ingredient.name)"></td>
+            </tr>
+        </table>
     </div>
-    <button class="primary-button" (click)="ingredientForm.showNewForm()">New Ingredient</button>
+    <button class="primary-button" (click)="showUpdateIngredientForm()" [disabled]="selectedIngredientNames.length !== 1">
+        Update
+    </button><br />
+    <button class="primary-button" (click)="deleteIngredient()" [disabled]="selectedIngredientNames.length === 0">
+        Delete
+    </button><br />
+    <button class="primary-button" (click)="ingredientForm.showNewForm()">
+        New Ingredient
+    </button><br />
     <app-ingredient-form [recipeId]="recipeId" #ingredientForm></app-ingredient-form>
 </div>
 <div>
     <h3>Steps</h3>
-    <div *ngFor="let step of steps; index as order">
-        <div>{{order + 1}} - {{step.description}}</div>
-    </div>
-    <button class="primary-button" (click)="stepForm.showNewForm()">New Step</button>
+    <table class="ingredients">
+        <tr *ngFor="let step of steps; index as order">
+            <td>{{order + 1}}</td>
+            <td>{{step.description}}</td>
+            <td><input type="checkbox" (change)="selectStep($event, order + 1)"></td>
+        </tr>
+    </table>
+    <button class="primary-button" (click)="showUpdateStepForm()"  [disabled]="selectedStepOrders.length !== 1">
+        Update
+    </button><br />
+    <button class="primary-button" (click)="stepForm.showNewForm()" [disabled]="selectedStepOrders.length === 0">
+        Delete
+    </button><br />
+    <button class="primary-button" (click)="stepForm.showNewForm()">
+        New Step
+    </button><br />
     <app-step-form [recipeId]="recipeId" #stepForm></app-step-form>
 </div>
 <div>
