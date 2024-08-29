@@ -1,5 +1,6 @@
-<h2>{{recipeTitle}}</h2>
-<div>{{recipeType}}</div>
+<div class="title">{{recipeTitle | titlecase}}</div>
+<div class="type">{{recipeType | titlecase}}</div>
+<button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 <div>
     <h3>Ingredients</h3>
     <div class="bottom-space">
@@ -12,7 +13,8 @@
             </tr>
         </table>
     </div>
-    <button class="primary-button" (click)="showUpdateIngredientForm()" [disabled]="selectedIngredientNames.length !== 1">
+    <button class="primary-button" (click)="showUpdateIngredientForm()"
+        [disabled]="selectedIngredientNames.length !== 1">
         Update
     </button><br />
     <button class="primary-button" (click)="deleteIngredient()" [disabled]="selectedIngredientNames.length === 0">
@@ -32,7 +34,7 @@
             <td class="top-text"><input type="checkbox" (change)="selectStep($event, order + 1)"></td>
         </tr>
     </table>
-    <button class="primary-button" (click)="showUpdateStepForm()"  [disabled]="selectedStepOrders.length !== 1">
+    <button class="primary-button" (click)="showUpdateStepForm()" [disabled]="selectedStepOrders.length !== 1">
         Update
     </button><br />
     <button class="primary-button" (click)="deleteSteps()" [disabled]="selectedStepOrders.length === 0">
@@ -46,13 +48,11 @@
 <div>
     <h3>
         Cooking
-        <button class="secondary-button"
-            (click)="cookingForm.show(recipeCookingTime, recipeTemperature)">Update</button>
     </h3>
     <div class="bottom-space">
         <div>Cooking Time: {{recipeCookingTime}} minutes</div>
         <div>Temperature: {{recipeTemperature}}</div>
     </div>
     <app-cooking-form [recipeId]="recipeId" (updated)="loadRecipe()" #cookingForm></app-cooking-form>
-    <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
+    <button class="primary-button" (click)="cookingForm.show(recipeCookingTime, recipeTemperature)">Update</button>
 </div>

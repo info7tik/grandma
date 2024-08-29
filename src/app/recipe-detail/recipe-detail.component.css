@@ -1,3 +1,13 @@
+.title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.type {
+    font-size: 20px;
+    font-style: italic;
+}
+
 .bottom-space {
     margin-bottom: 20px;
 }
