@@ -7,7 +7,12 @@
 }
 
 .nav-bar > * {
+    width: 100px;
     padding: 5px;
+    margin-inline-end: 10px;
+    background-color: #C2D7FC;
+    border: 1px solid #3980FE;
+    border-radius: 3px;
 }
 
 .content {
