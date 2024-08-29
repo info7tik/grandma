@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import SHA from 'sha.js';
-import { Ingredient, Recipe, RecipeId, RecipeMap, RecipeType, RecipeStorage as StorageData } from './types';
+import { Ingredient, Recipe, RecipeId, RecipeMap, RecipeType, Step, RecipeStorage as StorageData } from './types';
 @Injectable({
     providedIn: 'root'
 })
@@ -164,6 +164,34 @@ export class StorageService {
             return true;
         } else {
             console.log(`can not update step: index ${stepIndex} is too large`);
+            return false;
+        }
+    }
+
+    deleteSteps(recipeId: RecipeId, stepOrders: number[]): boolean {
+        console.log(`delete steps '${stepOrders}' of ${recipeId}`);
+        if (recipeId.length === 0) {
+            console.log(`can not delete steps: recipe ID is empty`);
+            return false;
+        }
+        let recipe = this.getById(recipeId);
+        const stepsToDelete: Step[] = [];
+        stepOrders.forEach(order => {
+            const stepIndex = order - 1;
+            if (stepIndex < recipe.steps.length) {
+                stepsToDelete.push(recipe.steps[stepIndex]);
+            } else {
+                console.log(`can not delete step: index ${stepIndex} is too large`);
+            }
+        });
+        if (stepsToDelete.length > 0) {
+            stepsToDelete.forEach(step => {
+                const stepIndex = recipe.steps.indexOf(step);
+                recipe.steps.splice(stepIndex, 1);
+            });
+            this.saveStorageData();
+            return true;
+        } else {
             return false;
         }
     }

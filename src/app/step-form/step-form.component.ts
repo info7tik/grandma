@@ -23,9 +23,10 @@ export class StepFormComponent {
         this.description = "";
     }
 
-    showNewForm() {
+    showNewForm(lastStepNumber: number) {
         this.isNewStep = true;
         this.resetFields();
+        this.stepNumber = lastStepNumber;
         this.dialog.nativeElement.show();
     }
 

@@ -35,10 +35,10 @@
     <button class="primary-button" (click)="showUpdateStepForm()"  [disabled]="selectedStepOrders.length !== 1">
         Update
     </button><br />
-    <button class="primary-button" (click)="stepForm.showNewForm()" [disabled]="selectedStepOrders.length === 0">
+    <button class="primary-button" (click)="deleteSteps()" [disabled]="selectedStepOrders.length === 0">
         Delete
     </button><br />
-    <button class="primary-button" (click)="stepForm.showNewForm()">
+    <button class="primary-button" (click)="showNewStepForm()">
         New Step
     </button><br />
     <app-step-form [recipeId]="recipeId" #stepForm></app-step-form>

@@ -99,6 +99,10 @@ export class RecipeDetailComponent {
         }
     }
 
+    showNewStepForm() {
+        this.stepForm.showNewForm(this.steps.length + 1);
+    }
+
     selectStep($event: Event, stepOrder: number) {
         const htmlInput = $event.target as HTMLInputElement;
         if (htmlInput.checked) {
@@ -126,4 +130,8 @@ export class RecipeDetailComponent {
         }
     }
 
+    deleteSteps() {
+        this.service.deleteSteps(this.recipeId, this.selectedStepOrders.map(selected => selected.order));
+        this.selectedStepOrders = [];
+    }
 }
