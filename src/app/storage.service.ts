@@ -149,21 +149,23 @@ export class StorageService {
         return true;
     }
 
-    updateStep(recipeId: RecipeId, stepIndex: number, newOrder: number, newDescription: string): boolean {
+    updateStep(recipeId: RecipeId, currentOrder: number, newOrder: number, newDescription: string): boolean {
         if (recipeId.length === 0) {
             console.log(`can not update step: recipe ID is empty`);
             return false;
         }
+        const newIndex = currentOrder < newOrder ? newOrder : newOrder - 1;
+        const existingIndex = currentOrder - 1;
         let recipe = this.getById(recipeId);
-        if (stepIndex < recipe.steps.length) {
-            const existingStep = recipe.steps[stepIndex];
-            recipe.steps.splice(newOrder - 1, 0, { "description": newDescription });
+        if (existingIndex < recipe.steps.length) {
+            const existingStep = recipe.steps[existingIndex];
+            recipe.steps.splice(newIndex, 0, { "description": newDescription });
             const existingStepIndex = recipe.steps.indexOf(existingStep);
             recipe.steps.splice(existingStepIndex, 1);
             this.saveStorageData()
             return true;
         } else {
-            console.log(`can not update step: index ${stepIndex} is too large`);
+            console.log(`can not update step: index ${currentOrder} is too large`);
             return false;
         }
     }

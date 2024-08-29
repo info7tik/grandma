@@ -14,7 +14,7 @@ export class StepFormComponent {
     @ViewChild("dialog") dialog!: ElementRef;
     @Input() recipeId: string = "";
     stepNumber: number = 1;
-    stepIndex: number = 0;
+    currentOrder: number = 0;
     description: string = "";
     private isNewStep = false;
 
@@ -33,7 +33,7 @@ export class StepFormComponent {
     showUpdateForm(stepNumber: number, description: string) {
         this.isNewStep = false;
         this.stepNumber = stepNumber;
-        this.stepIndex = stepNumber - 1;
+        this.currentOrder = stepNumber;
         this.description = description;
         this.dialog.nativeElement.show();
     }
@@ -42,7 +42,7 @@ export class StepFormComponent {
         if (this.isNewStep) {
             this.service.addStep(this.recipeId, this.stepNumber, this.description);
         } else {
-            this.service.updateStep(this.recipeId, this.stepIndex, this.stepNumber, this.description);
+            this.service.updateStep(this.recipeId, this.currentOrder, this.stepNumber, this.description);
         }
         this.dialog.nativeElement.close();
     }
