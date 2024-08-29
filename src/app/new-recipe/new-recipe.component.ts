@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { RecipeType } from '../types';
 @Component({
     selector: 'app-new-recipe',
     standalone: true,
-    imports: [FormsModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './new-recipe.component.html',
     styleUrl: './new-recipe.component.css'
 })
@@ -16,10 +17,13 @@ export class NewRecipeComponent {
     private service = inject(StorageService);
     recipeTitle = "";
     recipeType: string = RecipeType[RecipeType['main-course']];
+    recipeTypeValues: string[] = []
     recipeCookingTime: number = 0;
     recipeCookingTemperature: number = 0;
 
-    constructor() { }
+    constructor() {
+        this.recipeTypeValues = Object.values(RecipeType).filter(type => type !== RecipeType.none);
+    }
 
     saveRecipe() {
         const castedType = this.recipeType as keyof typeof RecipeType;

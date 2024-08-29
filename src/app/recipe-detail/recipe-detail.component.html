@@ -1,5 +1,5 @@
 <div class="title">{{recipeTitle | titlecase}}</div>
-<div class="type">{{recipeType | titlecase}}</div>
+<div class="type">{{recipeType.replace("-", " ") | titlecase}}</div>
 <button class="primary-button" (click)="deleteRecipe()">Delete this Recipe</button>
 <div>
     <h3>Ingredients</h3>

@@ -13,7 +13,7 @@ export interface Recipe {
     cooking: CookingInfo;
 }
 
-export enum RecipeType { "none" = "none", "main-course" = "main-course", "dessert" = "dessert" }
+export enum RecipeType { "none" = "none", "main-course" = "main-course", "dessert" = "dessert", "drink" = "drink" }
 
 export interface Ingredient {
     name: string,

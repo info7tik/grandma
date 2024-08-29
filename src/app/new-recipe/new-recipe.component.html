@@ -3,8 +3,7 @@
     <input type="text" class="input-size" [(ngModel)]="recipeTitle"><br />
     <label>Recipe Type</label><br />
     <select class="input-size" [(ngModel)]="recipeType">
-        <option value="main-course">Main Course</option>
-        <option value="dessert">Dessert</option>
+        <option *ngFor="let type of recipeTypeValues" [value]="type">{{type.replace("-", " ") | titlecase}}</option>
     </select><br />
     <label>Recipe Cooking Time (minutes)</label><br />
     <input type="number" class="input-size" [(ngModel)]="recipeCookingTime"><br />
