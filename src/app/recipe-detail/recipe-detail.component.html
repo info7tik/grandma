@@ -27,9 +27,9 @@
     <h3>Steps</h3>
     <table class="ingredients">
         <tr *ngFor="let step of steps; index as order">
-            <td>{{order + 1}}</td>
-            <td>{{step.description}}</td>
-            <td><input type="checkbox" (change)="selectStep($event, order + 1)"></td>
+            <td class="top-text">{{order + 1}}</td>
+            <td class="step-description">{{step.description}}</td>
+            <td class="top-text"><input type="checkbox" (change)="selectStep($event, order + 1)"></td>
         </tr>
     </table>
     <button class="primary-button" (click)="showUpdateStepForm()"  [disabled]="selectedStepOrders.length !== 1">

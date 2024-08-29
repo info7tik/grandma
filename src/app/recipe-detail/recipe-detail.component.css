@@ -20,3 +20,11 @@
     width: 100px;
     margin-bottom: 10px;
 }
+
+.top-text {
+    vertical-align: top;
+}
+
+.step-description {
+    max-width: 300px;
+}
