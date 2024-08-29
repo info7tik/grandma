@@ -45,13 +45,13 @@
     </button><br />
     <app-step-form [recipeId]="recipeId" #stepForm></app-step-form>
 </div>
-<div>
+<div *ngIf="recipeCookingTime > 0 || recipeTemperature > 0">
     <h3>
         Cooking
     </h3>
     <div class="bottom-space">
-        <div>Cooking Time: {{recipeCookingTime}} minutes</div>
-        <div>Temperature: {{recipeTemperature}}</div>
+        <div *ngIf="recipeCookingTime > 0">Cooking Time: {{recipeCookingTime}} minutes</div>
+        <div *ngIf="recipeTemperature > 0">Temperature: {{recipeTemperature}}</div>
     </div>
     <app-cooking-form [recipeId]="recipeId" (updated)="loadRecipe()" #cookingForm></app-cooking-form>
     <button class="primary-button" (click)="cookingForm.show(recipeCookingTime, recipeTemperature)">Update</button>
