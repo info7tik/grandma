@@ -6,13 +6,25 @@
     text-align: center;
 }
 
-.nav-bar > * {
+.large-button {
+    width: 320px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.small-button {
     width: 100px;
     padding: 5px;
-    margin-inline-end: 10px;
+}
+
+.blue {
     background-color: #C2D7FC;
     border: 1px solid #3980FE;
     border-radius: 3px;
+}
+
+.m-right {
+    margin-right: 10px;
 }
 
 .content {

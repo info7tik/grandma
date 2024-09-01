@@ -2,10 +2,21 @@
     <div class="m-auto t-center">
         <h1>GrandMa's Recipes</h1>
         <nav class="nav-bar">
-            <button routerLink="/recipes/main-course" routerLinkActive="active" ariaCurrentWhenActive="page">Main Courses</button>
-            <button routerLink="/recipes/dessert" routerLinkActive="active" ariaCurrentWhenActive="page">Desserts</button>
-            <button routerLink="/recipes/drink" routerLinkActive="active" ariaCurrentWhenActive="page">Drinks</button>
-            <button routerLink="/newrecipe" routerLinkActive="active" ariaCurrentWhenActive="page">New Recipes</button>
+            <button routerLink="/newrecipe" routerLinkActive="active" ariaCurrentWhenActive="page" class="large-button blue">
+                New Recipes
+            </button><br />
+            <button routerLink="/recipes/main-course" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="small-button m-right blue">
+                Main Courses
+            </button>
+            <button routerLink="/recipes/dessert" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="small-button m-right blue">
+                Desserts
+            </button>
+            <button routerLink="/recipes/drink" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="small-button blue">
+                Drinks
+            </button>
         </nav>
         <div class="content">
             <router-outlet />
