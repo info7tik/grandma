@@ -22,7 +22,7 @@ export class NewRecipeComponent {
     recipeCookingTemperature: number = 0;
 
     constructor() {
-        this.recipeTypeValues = Object.values(RecipeType).filter(type => type !== RecipeType.none);
+        this.recipeTypeValues = Object.values(RecipeType);
     }
 
     saveRecipe() {

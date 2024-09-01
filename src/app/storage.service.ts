@@ -10,8 +10,20 @@ export class StorageService {
     private storageData: StorageData = this.EMPTY_STORAGE_DATA;
 
     constructor() {
-        // localStorage.clear();
         this.loadStorageData();
+    }
+
+    getDefaultRecipeType(): RecipeType {
+        let defaultType = RecipeType['main-course'];
+        let maxRecipeNumber = -1;
+        Object.values(RecipeType).forEach(type => {
+            const recipes = this.getByType(type);
+            if (recipes.length > maxRecipeNumber) {
+                maxRecipeNumber = recipes.length;
+                defaultType = type;
+            }
+        });
+        return defaultType;
     }
 
     getAll(): RecipeMap {
@@ -45,7 +57,7 @@ export class StorageService {
         if (!this.ingredientExists(recipe.ingredients, ingredient.name)) {
             console.log(`add ingredient '${ingredient.name}' to '${recipeId}'`);
             recipe.ingredients.push(ingredient);
-            recipe.ingredients.sort(this.compareIngredient)
+            recipe.ingredients.sort(this.compareIngredient);
             this.saveStorageData();
             return true;
         } else {
@@ -162,7 +174,7 @@ export class StorageService {
             recipe.steps.splice(newIndex, 0, { "description": newDescription });
             const existingStepIndex = recipe.steps.indexOf(existingStep);
             recipe.steps.splice(existingStepIndex, 1);
-            this.saveStorageData()
+            this.saveStorageData();
             return true;
         } else {
             console.log(`can not update step: index ${currentOrder} is too large`);

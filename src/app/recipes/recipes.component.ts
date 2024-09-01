@@ -17,7 +17,7 @@ export class RecipesComponent {
     private service = inject(StorageService)
     recipes: Recipe[] = [];
     selectedRecipe: string = "";
-    type: RecipeType = RecipeType.none;
+    type: RecipeType = RecipeType['main-course'];
 
     ngOnInit() {
         this.route.params.subscribe(params => {

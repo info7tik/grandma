@@ -23,7 +23,7 @@ export class RecipeDetailComponent {
     @ViewChild("stepForm") stepForm!: StepFormComponent;
     recipeId: RecipeId = "";
     recipeTitle = "";
-    recipeType = RecipeType.none;
+    recipeType = RecipeType['main-course'];
     recipeTemperature = 0;
     recipeCookingTime = 0;
     ingredients: Ingredient[] = [];

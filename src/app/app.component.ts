@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { StorageService } from './storage.service';
+import { RecipeType } from './types';
 
 @Component({
     selector: 'app-root',
@@ -9,12 +11,20 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'GrandMa';
-    isNewRecipeShown = false
+    service = inject(StorageService);
+    router = inject(Router);
+    isNewRecipeShown = false;
     newRecipeTitle = "";
+    defaultType: RecipeType = RecipeType['main-course'];
 
-    showNewRecipe(){
+    ngOnInit(): void {
+        this.defaultType = this.service.getDefaultRecipeType();
+        this.router.navigate(["/recipes", this.defaultType]);
+    }
+
+    showNewRecipe() {
         this.isNewRecipeShown = true;
     }
 }
