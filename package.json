@@ -31,6 +31,7 @@
     "@angular/cli": "^18.1.4",
     "@angular/compiler-cli": "^18.1.0",
     "@capacitor/cli": "latest",
+    "@capacitor/filesystem": "^6.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.5.0",
     "@types/sha.js": "^2.4.4",

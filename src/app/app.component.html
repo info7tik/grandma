@@ -2,7 +2,12 @@
     <div class="m-auto t-center">
         <h1>GrandMa's Recipes</h1>
         <nav class="nav-bar">
-            <button routerLink="/newrecipe" routerLinkActive="active" ariaCurrentWhenActive="page" class="large-button blue">
+            <div *ngIf="saveMessage">{{saveMessage}}</div>
+            <button (click)="saveOnLocalStorage()" class="large-button" [ngClass]="saveButtonColor">
+                Save All Recipes to Local Storage
+            </button><br />
+            <button routerLink="/newrecipe" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="large-button blue">
                 New Recipes
             </button><br />
             <button routerLink="/recipes/main-course" routerLinkActive="active" ariaCurrentWhenActive="page"

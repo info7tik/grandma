@@ -18,6 +18,10 @@ export class AppComponent implements OnInit {
     isNewRecipeShown = false;
     newRecipeTitle = "";
     defaultType: RecipeType = RecipeType['main-course'];
+    private saveButtonIdleColor = 'grey';
+    private saveButtonBusyColor = 'orange';
+    saveButtonColor = this.saveButtonIdleColor;
+    saveMessage = "";
 
     ngOnInit(): void {
         this.defaultType = this.service.getDefaultRecipeType();
@@ -26,5 +30,15 @@ export class AppComponent implements OnInit {
 
     showNewRecipe() {
         this.isNewRecipeShown = true;
+    }
+
+    saveOnLocalStorage() {
+        this.saveButtonColor = this.saveButtonBusyColor;
+        this.service.saveOnLocalStorage()
+            .then(() => {
+                this.saveButtonColor = this.saveButtonIdleColor;
+                this.saveMessage = "recipes saved to Documents";
+            })
+            .catch((error) => this.saveMessage = error);
     }
 }

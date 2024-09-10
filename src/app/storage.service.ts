@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Directory, Encoding, Filesystem, WriteFileResult } from '@capacitor/filesystem';
 import SHA from 'sha.js';
 import { Ingredient, Recipe, RecipeId, RecipeMap, RecipeType, Step, RecipeStorage as StorageData } from './types';
 @Injectable({
@@ -11,6 +12,22 @@ export class StorageService {
 
     constructor() {
         this.loadStorageData();
+    }
+
+    saveOnLocalStorage(): Promise<WriteFileResult> {
+        const jsonData = localStorage.getItem(this.RECIPES_KEY);
+        if (jsonData) {
+            return Filesystem.writeFile({
+                path: "grandma.json",
+                data: jsonData,
+                directory: Directory.Documents,
+                encoding: Encoding.UTF8
+            });
+        } else {
+            return new Promise<WriteFileResult>((resolve, reject) => {
+                reject("can not save data: no recipes");
+            });
+        }
     }
 
     getDefaultRecipeType(): RecipeType {
@@ -211,11 +228,11 @@ export class StorageService {
     }
 
     private loadStorageData(): StorageData {
-        const storageData = localStorage.getItem(this.RECIPES_KEY);
-        if (storageData === null) {
+        const jsonStorageData = localStorage.getItem(this.RECIPES_KEY);
+        if (jsonStorageData === null) {
             this.storageData = this.EMPTY_STORAGE_DATA;
         } else {
-            this.storageData = JSON.parse(storageData);
+            this.storageData = JSON.parse(jsonStorageData);
         }
         return this.storageData;
     }
