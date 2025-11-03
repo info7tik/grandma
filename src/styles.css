@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+.m-auto {
+    margin: auto;
+}
+
+.m-bottom {
+    margin-bottom: 10px;
+}
+
+.m-top {
+    margin-top: 10px;
+}
+
+.m-right {
+    margin-right: 10px;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.large-button {
+    width: 320px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.small-button {
+    width: 100px;
+    padding: 5px;
+}
+
+.blue {
+    background-color: #C2D7FC;
+    border: 1px solid #3980FE;
+    border-radius: 3px;
+}
+
+.grey {
+    background-color: #dadada;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.orange {
+    background-color: #fcb853;
+    border: 1px solid red;
+    border-radius: 3px;
+}

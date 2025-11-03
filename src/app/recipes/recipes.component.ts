@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { Recipe, RecipeId, RecipeType } from '../types';
 
 @Component({
     selector: 'app-recipes',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterLink, RouterLinkActive],
     templateUrl: './recipes.component.html',
     styleUrl: './recipes.component.css'
 })

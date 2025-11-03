@@ -4,6 +4,12 @@ Manage your cooking recipes.
 
 ## Development Workflow
 
+### First build
+```
+npx ng build
+npx cap add android
+```
+
 ### Update the Android application after modifying the Angular sources
 After modifying the Angular sources, start by build the Angular application:
 ```
