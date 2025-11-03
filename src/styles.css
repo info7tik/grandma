@@ -18,6 +18,15 @@
     text-align: center;
 }
 
+.t-left {
+    text-align: left;
+}
+
+.t-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
 .large-button {
     width: 320px;
     padding: 5px;

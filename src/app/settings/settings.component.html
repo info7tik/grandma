@@ -1,0 +1,45 @@
+<button routerLink="/menu" routerLinkActive="active" ariaCurrentWhenActive="page" class="large-button home-button">
+    Home
+</button>
+
+<div class="settings-container">
+    <!-- Export Section -->
+    <app-message #exportMessage></app-message>
+    <div>
+        <div class="t-left t-title">Export Data</div>
+        <div class="t-left m-bottom">Download your storage data as a JSON file for backup purposes.</div>
+        <button class="export-btn" (click)="exportData()" type="button">
+            Export
+        </button>
+    </div>
+
+    <!-- Import Section -->
+    <app-message #importMessage></app-message>
+    <div>
+        <div class="t-left t-title">Import Data</div>
+        <div class="t-left m-bottom">
+            Import previously exported data from a JSON file.
+            <b class="warning">Be careful, this will overwrite your current data.</b>
+        </div>
+        <div class="file-input-container">
+            <input type="file" id="importFile" accept=".json,application/json" (change)="onFileSelected($event)"
+                class="file-input">
+            <label for="importFile" class="file-input-label">
+                Choose JSON File
+            </label>
+        </div>
+    </div>
+
+    <!-- Delete Section -->
+    <app-message #deleteMessage></app-message>
+    <div>
+        <div class="t-left t-title">Delete All Data</div>
+        <div class="t-left m-bottom">
+            Delete all data from the storage.
+            <b class="warning">Be careful, your data will be lost forever.</b>
+        </div>
+        <button class="delete-btn" (click)="deleteData()" type="button">
+            Delete All Data
+        </button>
+    </div>
+</div>

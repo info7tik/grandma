@@ -14,21 +14,16 @@ export class StorageService {
         this.loadStorageData();
     }
 
-    saveOnLocalStorage(): Promise<WriteFileResult> {
+    exportData(): string {
         const jsonData = localStorage.getItem(this.RECIPES_KEY);
-        if (jsonData) {
-            return Filesystem.writeFile({
-                path: "grandma.json",
-                data: jsonData,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8
-            });
+        if (jsonData === null) {
+            return "";
         } else {
-            return new Promise<WriteFileResult>((resolve, reject) => {
-                reject("can not save data: no recipes");
-            });
+            return jsonData;
         }
     }
+
+    importData(data: string): void { }
 
     getDefaultRecipeType(): RecipeType {
         let defaultType = RecipeType['main-course'];
