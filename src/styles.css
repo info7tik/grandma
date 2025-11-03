@@ -29,6 +29,12 @@
     padding: 5px;
 }
 
+.home-button {
+    background-color: #bef7be;
+    border: 1px solid #5eb75e;
+    border-radius: 3px;
+}
+
 .blue {
     background-color: #C2D7FC;
     border: 1px solid #3980FE;

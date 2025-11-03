@@ -1,12 +1,7 @@
-.new-recipe > * {
+.new-recipe>* {
     margin-bottom: 10px;
 }
 
 .input-size {
     width: 250px;
-}
-
-.primary-button {
-    width: 250px;
-    height: 30px;
 }
