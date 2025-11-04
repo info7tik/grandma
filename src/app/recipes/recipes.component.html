@@ -13,6 +13,6 @@
 <div *ngFor="let r of recipes">
     <button class="recipe-button m-bottom" (click)="selectRecipe(r.id)">{{r.title}}</button>
 </div>
-<button routerLink="/menu" routerLinkActive="active" ariaCurrentWhenActive="page" class="large-button home-button">
+<button routerLink="/menu" class="large-button home-button">
     Home
 </button>
