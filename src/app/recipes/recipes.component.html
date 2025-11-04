@@ -1,14 +1,11 @@
 <nav class="m-bottom">
-    <button routerLink="/recipes/main-course" routerLinkActive="active" ariaCurrentWhenActive="page"
+    <button routerLink="/recipes/main-course" [class.selected-blue]="type === 'main-course'"
         class="small-button m-right blue">
         Main Courses
     </button>
-    <button routerLink="/recipes/dessert" routerLinkActive="active" ariaCurrentWhenActive="page"
-        class="small-button m-right blue">
+    <button routerLink="/recipes/dessert" [class.selected-blue]="type === 'dessert'" class="small-button m-right blue">
         Desserts
-    </button>
-    <button routerLink="/recipes/drink" routerLinkActive="active" ariaCurrentWhenActive="page"
-        class="small-button blue">
+    </button> <button routerLink="/recipes/drink" [class.selected-blue]="type === 'drink'" class="small-button blue">
         Drinks
     </button>
 </nav>
