@@ -60,6 +60,11 @@ Run on a device:
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
+## Update the application icon
+```bash
+npx capacitor-assets generate --assetPath src/assets/icon --android
+```
+
 ## Icons used in the application are from [flaticon.com](https://www.flaticon.com/free-icons/open-source)
 The authors of the icons are:
 * [adrly](https://www.flaticon.com/authors/adrly)
