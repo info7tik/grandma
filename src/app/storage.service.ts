@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Directory, Encoding, Filesystem, WriteFileResult } from '@capacitor/filesystem';
 import SHA from 'sha.js';
-import { Ingredient, Recipe, RecipeId, RecipeMap, RecipeType, Step, RecipeStorage as StorageData } from './types';
+import { Ingredient, Recipe, RecipeId, RecipeMap, RecipeStorage, RecipeType, Step, RecipeStorage as StorageData } from './types';
 @Injectable({
     providedIn: 'root'
 })
 export class StorageService {
-    private readonly RECIPES_KEY = "recipes";
-    private readonly EMPTY_STORAGE_DATA = { recipes: {} };
-    private storageData: StorageData = this.EMPTY_STORAGE_DATA;
+    readonly RECIPES_KEY = "recipes";
+    private readonly NO_RECIPES: RecipeMap = {};
+    private recipes: RecipeMap = this.NO_RECIPES;
 
     constructor() {
         this.loadStorageData();
+    }
+
+    clearData() {
+        this.recipes = this.NO_RECIPES;
+        localStorage.clear();
     }
 
     exportData(): string {
@@ -23,7 +28,15 @@ export class StorageService {
         }
     }
 
-    importData(data: string): void { }
+    importData(data: string): void {
+        const recipes = JSON.parse(data);
+        if (recipes) {
+            this.recipes = recipes;
+            this.saveStorageData();
+        } else {
+            throw "invalid data";
+        }
+    }
 
     getDefaultRecipeType(): RecipeType {
         let defaultType = RecipeType['main-course'];
@@ -39,19 +52,19 @@ export class StorageService {
     }
 
     getAll(): RecipeMap {
-        return this.storageData.recipes;
+        return this.recipes;
     }
 
     getById(id: RecipeId): Recipe {
-        if (id in this.storageData.recipes) {
-            return this.storageData.recipes[id];
+        if (id in this.recipes) {
+            return this.recipes[id];
         } else {
             throw `no recipe with id '${id}'`;
         }
     }
 
     getByType(type: RecipeType): Recipe[] {
-        const foundRecipes = Object.values(this.storageData.recipes).filter(r => r.type === type);
+        const foundRecipes = Object.values(this.recipes).filter(r => r.type === type);
         if (foundRecipes.length > 0) {
             return foundRecipes;
         } else {
@@ -129,7 +142,7 @@ export class StorageService {
         }
         const recipeId = SHA('sha256').update(recipeTitle).digest("hex");
         console.log(`add recipe '${recipeTitle}' with id '${recipeId}' and type '${recipeType}'`);
-        this.storageData.recipes[recipeId] = {
+        this.recipes[recipeId] = {
             id: recipeId,
             title: recipeTitle,
             type: recipeType,
@@ -145,7 +158,7 @@ export class StorageService {
         if (recipeId.length === 0) {
             throw "can not remove recipe: no recipe ID";
         }
-        delete this.storageData.recipes[recipeId];
+        delete this.recipes[recipeId];
         this.saveStorageData();
     }
 
@@ -222,17 +235,17 @@ export class StorageService {
         }
     }
 
-    private loadStorageData(): StorageData {
+    private loadStorageData(): RecipeMap {
         const jsonStorageData = localStorage.getItem(this.RECIPES_KEY);
         if (jsonStorageData === null) {
-            this.storageData = this.EMPTY_STORAGE_DATA;
+            this.recipes = this.NO_RECIPES;
         } else {
-            this.storageData = JSON.parse(jsonStorageData);
+            this.recipes = JSON.parse(jsonStorageData);
         }
-        return this.storageData;
+        return this.recipes;
     }
 
     private saveStorageData() {
-        localStorage.setItem(this.RECIPES_KEY, JSON.stringify(this.storageData));
+        localStorage.setItem(this.RECIPES_KEY, JSON.stringify(this.recipes));
     }
 }

@@ -24,7 +24,7 @@ export class SettingsComponent {
 
   constructor(private storageService: StorageService) { }
 
-  onFileSelected(event: any): void {
+  importData(event: any): void {
     const file = event.target.files[0];
     if (file && file.type === 'application/json') {
       const reader = new FileReader();
@@ -68,7 +68,7 @@ export class SettingsComponent {
   }
 
   deleteData(): void {
-    localStorage.clear();
+    this.storageService.clearData();
     this.deleteMessage.showSuccess("All data deleted successfully!");
   }
 }
