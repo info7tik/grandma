@@ -22,7 +22,7 @@ export class RecipesComponent {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.type = params["type"];
-            this.recipes = this.service.getByType(this.type)
+            this.recipes = this.service.getByType(this.type).sort((r1, r2) => r1.title.localeCompare(r2.title))
         });
     }
 
