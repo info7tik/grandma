@@ -1,0 +1,72 @@
+<fieldset class="field-array">
+  <legend>Ingredients</legend>
+  @for (ingredientGroup of ingredients().controls; track $index; let index = $index) {
+    <div class="field-array-row" [formGroup]="ingredientGroup">
+      <div class="field">
+        <label [attr.for]="'ingredient-name-' + index">Ingredient {{ index + 1 }} name</label>
+        <input
+          [id]="'ingredient-name-' + index"
+          type="text"
+          formControlName="name"
+          [attr.aria-invalid]="
+            ingredientGroup.controls.name.invalid && ingredientGroup.controls.name.touched
+          "
+          [attr.aria-describedby]="
+            ingredientGroup.controls.name.invalid && ingredientGroup.controls.name.touched
+              ? 'ingredient-name-error-' + index
+              : null
+          "
+        />
+        @if (ingredientGroup.controls.name.invalid && ingredientGroup.controls.name.touched) {
+          <p class="field-error" [id]="'ingredient-name-error-' + index">
+            Ingredient name is required.
+          </p>
+        }
+      </div>
+      <div class="field">
+        <label [attr.for]="'ingredient-quantity-' + index"
+          >Ingredient {{ index + 1 }} quantity</label
+        >
+        <input
+          [id]="'ingredient-quantity-' + index"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          formControlName="quantity"
+          [attr.aria-invalid]="
+            ingredientGroup.controls.quantity.invalid && ingredientGroup.controls.quantity.touched
+          "
+          [attr.aria-describedby]="
+            ingredientGroup.controls.quantity.invalid && ingredientGroup.controls.quantity.touched
+              ? 'ingredient-quantity-error-' + index
+              : null
+          "
+        />
+        @if (
+          ingredientGroup.controls.quantity.invalid && ingredientGroup.controls.quantity.touched
+        ) {
+          <p class="field-error" [id]="'ingredient-quantity-error-' + index">
+            Quantity must be zero or more.
+          </p>
+        }
+      </div>
+      <div class="field">
+        <label [attr.for]="'ingredient-unit-' + index">Ingredient {{ index + 1 }} unit</label>
+        <select [id]="'ingredient-unit-' + index" formControlName="unit">
+          @for (unit of units; track unit) {
+            <option [value]="unit">{{ unitLabels[unit] }}</option>
+          }
+        </select>
+      </div>
+      <button
+        type="button"
+        class="button button-secondary"
+        [attr.aria-label]="'Remove ingredient ' + (index + 1)"
+        (click)="removeIngredient(index)"
+      >
+        Remove
+      </button>
+    </div>
+  }
+  <button type="button" class="button" (click)="addIngredient()">Add ingredient</button>
+</fieldset>

@@ -1,0 +1,74 @@
+@if (recipe(); as recipe) {
+  <article class="recipe-detail">
+    <header class="recipe-detail-header">
+      <h1>{{ recipe.title }}</h1>
+      <span class="recipe-detail-badge">{{ typeLabels[recipe.type] }}</span>
+    </header>
+
+    <section aria-labelledby="ingredients-heading">
+      <h2 id="ingredients-heading">Ingredients</h2>
+      @if (recipe.ingredients.length > 0) {
+        <ul>
+          @for (ingredient of recipe.ingredients; track $index) {
+            <li>
+              {{ ingredient.quantity }}
+              @if (ingredient.unit !== 'none') {
+                {{ unitLabels[ingredient.unit] }}
+              }
+              {{ ingredient.name }}
+            </li>
+          }
+        </ul>
+      } @else {
+        <p role="status">No ingredients listed.</p>
+      }
+    </section>
+
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Steps</h2>
+      @if (recipe.steps.length > 0) {
+        <ol>
+          @for (step of recipe.steps; track $index) {
+            <li>{{ step }}</li>
+          }
+        </ol>
+      } @else {
+        <p role="status">No steps listed.</p>
+      }
+    </section>
+
+    <section aria-labelledby="cooking-heading">
+      <h2 id="cooking-heading">Cooking</h2>
+      @if (recipe.cooking.temperatureCelsius !== null || recipe.cooking.timeMinutes !== null) {
+        <p>
+          @if (recipe.cooking.temperatureCelsius !== null) {
+            Temperature: {{ recipe.cooking.temperatureCelsius }}&deg;C
+          }
+          @if (recipe.cooking.timeMinutes !== null) {
+            &middot; Time: {{ recipe.cooking.timeMinutes }} minutes
+          }
+        </p>
+      } @else {
+        <p role="status">No cooking information provided.</p>
+      }
+    </section>
+
+    <div class="recipe-detail-actions">
+      <a class="button button-secondary" [routerLink]="['/recipes']">Back to list</a>
+      <a class="button button-secondary" [routerLink]="['/recipes', recipe.id, 'edit']"
+        >Edit recipe</a
+      >
+      <button type="button" class="button button-danger" (click)="openDeleteDialog()">
+        Delete recipe
+      </button>
+    </div>
+  </article>
+
+  <app-confirm-dialog
+    heading="Delete recipe"
+    [message]="'Delete \'' + recipe.title + '\'? This cannot be undone.'"
+    confirmLabel="Delete recipe"
+    cancelLabel="Cancel"
+    (confirmed)="onDeleteConfirmed()"
+  />
+}

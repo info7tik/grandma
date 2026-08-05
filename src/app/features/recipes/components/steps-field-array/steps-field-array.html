@@ -1,0 +1,38 @@
+<fieldset class="field-array">
+  <legend>Steps</legend>
+  @for (stepGroup of steps().controls; track $index; let index = $index) {
+    <div class="field-array-row" [formGroup]="stepGroup">
+      <div class="field">
+        <label [attr.for]="'step-text-' + index">Step {{ index + 1 }}</label>
+        <textarea
+          [id]="'step-text-' + index"
+          formControlName="text"
+          rows="2"
+          [attr.maxlength]="stepMaxLength"
+          [attr.aria-invalid]="stepGroup.controls.text.invalid && stepGroup.controls.text.touched"
+          [attr.aria-describedby]="
+            stepGroup.controls.text.invalid && stepGroup.controls.text.touched
+              ? 'step-text-error-' + index
+              : null
+          "
+        ></textarea>
+        @if (stepGroup.controls.text.invalid && stepGroup.controls.text.touched) {
+          <p class="field-error" [id]="'step-text-error-' + index">
+            Step text is required and must be
+            {{ stepMaxLength }}
+            characters or fewer.
+          </p>
+        }
+      </div>
+      <button
+        type="button"
+        class="button button-secondary"
+        [attr.aria-label]="'Remove step ' + (index + 1)"
+        (click)="removeStep(index)"
+      >
+        Remove
+      </button>
+    </div>
+  }
+  <button type="button" class="button" (click)="addStep()">Add step</button>
+</fieldset>

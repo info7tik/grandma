@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">grandma</string>
+    <string name="title_activity_main">grandma</string>
+    <string name="package_name">fr.dreamycode.grandma</string>
+    <string name="custom_url_scheme">fr.dreamycode.grandma</string>
+</resources>

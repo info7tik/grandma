@@ -1,0 +1,65 @@
+<h1>Recipes</h1>
+
+<div class="visually-hidden" role="status" aria-live="polite">{{ liveMessage() }}</div>
+
+<div class="recipe-list-toolbar">
+  <a class="button button-primary" [routerLink]="['/recipes', 'new']">New recipe</a>
+  <button type="button" class="button" (click)="exportRecipes()">Export recipes</button>
+  <button type="button" class="button" (click)="triggerImport()">Import recipes</button>
+  <button
+    type="button"
+    class="button button-danger"
+    (click)="requestDeleteAll()"
+    [disabled]="!hasAnyRecipes()"
+  >
+    Delete all recipes
+  </button>
+  <input
+    #fileInput
+    type="file"
+    accept="application/json"
+    class="visually-hidden"
+    aria-hidden="true"
+    tabindex="-1"
+    (change)="onFileSelected($event)"
+  />
+</div>
+
+<app-type-filter [selected]="typeFilter()" (selectedChange)="onTypeFilterChange($event)" />
+
+<div class="field recipe-search-field">
+  <label for="recipe-search">Search recipes by title</label>
+  <input
+    id="recipe-search"
+    type="search"
+    [value]="searchQuery()"
+    (input)="onSearchInput($any($event.target).value)"
+  />
+</div>
+
+@if (isLoading()) {
+  <p role="status">Loading recipes&hellip;</p>
+} @else if (filteredRecipes().length > 0) {
+  <ul class="recipe-list">
+    @for (recipe of filteredRecipes(); track recipe.id) {
+      <app-recipe-card
+        [recipe]="recipe"
+        (open)="openRecipe($event)"
+        (delete)="requestDeleteRecipe($event)"
+      />
+    }
+  </ul>
+} @else if (hasAnyRecipes()) {
+  <p role="status">No recipes match your search.</p>
+} @else {
+  <p role="status">No recipes yet. Create your first recipe to get started.</p>
+}
+
+<app-confirm-dialog
+  [heading]="deleteDialogHeading()"
+  [message]="deleteDialogMessage()"
+  confirmLabel="Delete"
+  cancelLabel="Cancel"
+  (confirmed)="onDeleteConfirmed()"
+  (cancelled)="onDeleteCancelled()"
+/>

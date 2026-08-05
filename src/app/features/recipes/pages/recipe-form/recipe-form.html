@@ -1,0 +1,82 @@
+<h1>{{ isEditMode() ? 'Edit recipe' : 'New recipe' }}</h1>
+
+<div class="visually-hidden" role="status" aria-live="polite">{{ liveMessage() }}</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="field">
+    <label for="recipe-title">Title</label>
+    <input
+      id="recipe-title"
+      type="text"
+      formControlName="title"
+      [attr.maxlength]="titleMaxLength"
+      [attr.aria-invalid]="form.controls.title.invalid && form.controls.title.touched"
+      [attr.aria-describedby]="
+        form.controls.title.invalid && form.controls.title.touched ? 'recipe-title-error' : null
+      "
+    />
+    @if (form.controls.title.invalid && form.controls.title.touched) {
+      <p class="field-error" id="recipe-title-error">
+        Title is required and must be {{ titleMaxLength }} characters or fewer.
+      </p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="recipe-type">Type</label>
+    <select id="recipe-type" formControlName="type">
+      @for (type of recipeTypes; track type) {
+        <option [value]="type">{{ typeLabels[type] }}</option>
+      }
+    </select>
+  </div>
+
+  <app-ingredients-field-array
+    [ingredients]="form.controls.ingredients"
+    (announcement)="onFieldArrayAnnouncement($event)"
+  />
+
+  <app-steps-field-array
+    [steps]="form.controls.steps"
+    (announcement)="onFieldArrayAnnouncement($event)"
+  />
+
+  <fieldset class="field-array">
+    <legend>Cooking</legend>
+    <div class="field">
+      <label for="recipe-cooking-temperature">Cooking temperature (&deg;C)</label>
+      <input
+        id="recipe-cooking-temperature"
+        type="number"
+        inputmode="decimal"
+        formControlName="cookingTemperature"
+      />
+    </div>
+    <div class="field">
+      <label for="recipe-cooking-time">Cooking time (minutes)</label>
+      <input
+        id="recipe-cooking-time"
+        type="number"
+        inputmode="numeric"
+        min="0"
+        formControlName="cookingTime"
+        [attr.aria-invalid]="form.controls.cookingTime.invalid && form.controls.cookingTime.touched"
+        [attr.aria-describedby]="
+          form.controls.cookingTime.invalid && form.controls.cookingTime.touched
+            ? 'recipe-cooking-time-error'
+            : null
+        "
+      />
+      @if (form.controls.cookingTime.invalid && form.controls.cookingTime.touched) {
+        <p class="field-error" id="recipe-cooking-time-error">Cooking time must be zero or more.</p>
+      }
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <button type="button" class="button button-secondary" (click)="cancel()">Cancel</button>
+    <button type="submit" class="button button-primary">
+      {{ isEditMode() ? 'Save changes' : 'Create recipe' }}
+    </button>
+  </div>
+</form>

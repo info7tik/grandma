@@ -1,0 +1,16 @@
+<div class="type-filter" role="tablist" aria-label="Filter recipes by type">
+  @for (option of options; track option.value; let index = $index) {
+    <button
+      type="button"
+      role="tab"
+      class="type-filter-tab"
+      [class.type-filter-tab-selected]="selectedIndex() === index"
+      [attr.aria-selected]="selectedIndex() === index"
+      [attr.tabindex]="selectedIndex() === index ? 0 : -1"
+      (click)="select(option.value)"
+      (keydown)="onKeydown($event, index)"
+    >
+      {{ option.label }}
+    </button>
+  }
+</div>
