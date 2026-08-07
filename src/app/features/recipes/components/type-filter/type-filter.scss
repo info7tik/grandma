@@ -1,26 +1,22 @@
 .type-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .type-filter-tab {
-  min-height: var(--touch-target);
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1.5rem;
-  background: var(--color-background);
-  color: var(--color-text);
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--color-surface);
-  }
+    min-height: var(--touch-target);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .type-filter-tab-selected {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-primary-contrast);
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
 }
