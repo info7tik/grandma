@@ -1,0 +1,38 @@
+<h1>GrandMa</h1>
+
+<div class="visually-hidden" role="status" aria-live="polite">{{ liveMessage() }}</div>
+
+<div class="home-actions">
+  <a class="button button-primary" [routerLink]="['/recipes']">Explore recipes</a>
+  <a class="button" [routerLink]="['/recipes', 'new']">New recipe</a>
+  <button type="button" class="button" (click)="exportRecipes()">Export recipes</button>
+  <button type="button" class="button" (click)="triggerImport()">Import recipes</button>
+  <input
+    #fileInput
+    type="file"
+    accept="application/json"
+    class="visually-hidden"
+    aria-hidden="true"
+    tabindex="-1"
+    (change)="onFileSelected($event)"
+  />
+</div>
+
+<div class="home-danger-zone">
+  <button
+    type="button"
+    class="button button-danger"
+    (click)="requestDeleteAll()"
+    [disabled]="!hasAnyRecipes()"
+  >
+    Delete all recipes
+  </button>
+</div>
+
+<app-confirm-dialog
+  heading="Delete all recipes"
+  message="Delete all recipes? This cannot be undone."
+  confirmLabel="Delete"
+  cancelLabel="Cancel"
+  (confirmed)="onDeleteAllConfirmed()"
+/>
