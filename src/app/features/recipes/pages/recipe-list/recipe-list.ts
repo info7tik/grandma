@@ -6,7 +6,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 import { RecipeCard } from '../../components/recipe-card/recipe-card';
@@ -20,7 +20,7 @@ type PendingDelete = { id: string; title: string } | null;
 @Component({
   selector: 'app-recipe-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RecipeCard, TypeFilter, ConfirmDialog],
+  imports: [RouterLink, RecipeCard, TypeFilter, ConfirmDialog],
   templateUrl: './recipe-list.html',
   styleUrl: './recipe-list.scss',
 })

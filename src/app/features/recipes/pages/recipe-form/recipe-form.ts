@@ -28,7 +28,7 @@ import {
   createStepFormGroup,
 } from '../../components/steps-field-array/steps-field-array';
 import { RecipeService } from '../../data/recipe.service';
-import { RECIPE_TYPE_LABELS, RECIPE_TYPES, Recipe, RecipeType } from '../../models/recipe.model';
+import { RECIPE_TYPES, RECIPE_TYPE_LABELS, Recipe, RecipeType } from '../../models/recipe.model';
 import { RECIPE_TITLE_MAX_LENGTH } from '../../validation/recipe-validation';
 
 type RecipeForm = FormGroup<{
@@ -130,7 +130,7 @@ export class RecipeFormPage implements OnInit {
 
   cancel(): void {
     const id = this.id();
-    void this.router.navigate(id ? ['/recipes', id] : ['/recipes']);
+    void this.router.navigate(id ? ['/recipes', id] : ['']);
   }
 
   private patchForm(recipe: Recipe): void {

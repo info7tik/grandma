@@ -1,5 +1,5 @@
 # Feature
-Create a home page with the following buttons :
+Create a home page with the following buttons:
 - Explore recipes
 - New Recipe
 - Export Recipes

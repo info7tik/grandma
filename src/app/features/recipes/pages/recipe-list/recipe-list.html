@@ -1,5 +1,7 @@
 <h1>Recipes</h1>
 
+<a class="button button-secondary" [routerLink]="['/']">Back to menu</a>
+
 <div class="visually-hidden" role="status" aria-live="polite">{{ liveMessage() }}</div>
 
 <app-type-filter [selected]="typeFilter()" (selectedChange)="onTypeFilterChange($event)" />
