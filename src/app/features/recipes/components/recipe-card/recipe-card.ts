@@ -13,7 +13,6 @@ export class RecipeCard {
   readonly recipe = input.required<Recipe>();
 
   readonly open = output<string>();
-  readonly delete = output<string>();
 
   readonly typeLabel = computed(() => RECIPE_TYPE_LABELS[this.recipe().type]);
 
@@ -21,9 +20,5 @@ export class RecipeCard {
 
   onOpen(): void {
     this.open.emit(this.recipe().id);
-  }
-
-  onDelete(): void {
-    this.delete.emit(this.recipe().id);
   }
 }

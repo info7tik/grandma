@@ -8,22 +8,33 @@ export const RECIPE_TYPE_LABELS: Record<RecipeType, string> = {
   drink: 'Drink',
 };
 
-export type IngredientUnit = 'none' | 'grams' | 'millilitres' | 'tablespoon' | 'teaspoon';
+export type IngredientUnit =
+  | 'none'
+  | 'grams'
+  | 'millilitres'
+  | 'tablespoons'
+  | 'teaspoons'
+  | 'pinches'
+  | 'cups';
 
 export const INGREDIENT_UNITS: readonly IngredientUnit[] = [
   'none',
   'grams',
   'millilitres',
-  'tablespoon',
-  'teaspoon',
+  'tablespoons',
+  'teaspoons',
+  'pinches',
+  'cups',
 ];
 
 export const INGREDIENT_UNIT_LABELS: Record<IngredientUnit, string> = {
   none: 'No unit',
-  grams: 'Grams (g)',
-  millilitres: 'Millilitres (ml)',
-  tablespoon: 'Tablespoon (tbsp)',
-  teaspoon: 'Teaspoon (tsp)',
+  grams: 'grams',
+  millilitres: 'millilitres',
+  tablespoons: 'tablespoons',
+  teaspoons: 'teaspoons',
+  pinches: 'pinches',
+  cups: 'cups',
 };
 
 export interface Ingredient {
