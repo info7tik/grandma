@@ -1,59 +1,74 @@
-# Grandma
+# GrandMa
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.20.
+## Screenshots
+in progress...
 
 ## Development server
-
 To start a local development server, run:
-
 ```bash
-ng serve
+npm start
 ```
-
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
 ## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
+To execute unit tests with the [karma](https://karma-runner.github.io/latest/index.html) test runner, use the following command:
 ```bash
-ng test
+npm run test
 ```
 
-## Running end-to-end tests
+## Android (Capacitor) quickstart
+This app is built with the Angular framework. In this section, we install the application on android phones but you can install it on ios phones (see https://capacitorjs.com/docs/ios).
 
-For end-to-end (e2e) testing, run:
-
+### Build and install on the connected phone
+To build the android app and install it over the connected phone, run the script [build-and-install.sh](./tools/build-and-install.sh):
 ```bash
-ng e2e
+bash tools/build-and-install.sh
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Step by step
+- On my Ubuntu system, I need to define the ANDROID_HOME variable:
+```bash
+export ANDROID_HOME=/home/info7tik/Android/Sdk/
+```
 
-## Additional Resources
+- Build web assets:
+```bash
+npm run build
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Sync to Android project:
+```bash
+npx cap sync android
+```
+
+- Build debug APK via CLI:
+```bash
+cd android && ./gradlew assembleDebug
+```
+
+- **Or** open Android Studio:
+```bash
+npx cap open android
+```
+
+APK output: `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+Run on a device:
+- Enable USB debugging, connect device, then:
+```bash
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+## Update the application icon
+```bash
+npx capacitor-assets generate --assetPath src/assets/icon --android
+```
+
+## Icons used in the application are from [flaticon.com](https://www.flaticon.com/free-icons/open-source)
+The authors of the icons are:
+* [adrly](https://www.flaticon.com/authors/adrly)
+* [zero-wing](https://www.flaticon.com/authors/zero-wing)
+* [hidemaru](https://www.flaticon.com/authors/hidemaru)
+* [freepik](https://www.flaticon.com/authors/freepik)
+* [ilham-fitrotul-hayat](https://www.flaticon.com/authors/ilham-fitrotul-hayat)
