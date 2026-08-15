@@ -1,5 +1,5 @@
 # GrandMa
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.
 
 ## Screenshots
 in progress...
