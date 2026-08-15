@@ -14,6 +14,13 @@ import { RecipeImportExportService } from '../../../recipes/data/recipe-import-e
 import { RecipeService } from '../../../recipes/data/recipe.service';
 import { RecipeImportResult } from '../../../recipes/models/recipe.model';
 
+type FeedbackKind = 'success' | 'error';
+
+interface Feedback {
+  kind: FeedbackKind;
+  message: string;
+}
+
 /** Landing page: entry points to explore, create, export, import and delete-all recipes. */
 @Component({
   selector: 'app-home',
@@ -27,7 +34,7 @@ export class HomePage {
   private readonly importExportService = inject(RecipeImportExportService);
 
   readonly hasAnyRecipes = computed(() => this.recipeService.recipes().length > 0);
-  readonly liveMessage = signal('');
+  readonly feedback = signal<Feedback | null>(null);
 
   private readonly deleteAllDialog = viewChild.required(ConfirmDialog);
   private readonly fileInput = viewChild.required<ElementRef<HTMLInputElement>>('fileInput');
@@ -44,15 +51,18 @@ export class HomePage {
       return;
     }
     const result = await this.importExportService.importFromFile(file);
-    this.liveMessage.set(this.describeImportResult(result));
+    this.feedback.set(this.describeImportResult(result));
   }
 
   async exportRecipes(): Promise<void> {
     try {
       await this.importExportService.exportToFile();
-      this.liveMessage.set('Recipes exported to the Documents folder.');
+      this.feedback.set({ kind: 'success', message: 'Recipes exported to the Documents folder.' });
     } catch {
-      this.liveMessage.set('Export failed. Please check permissions and try again.');
+      this.feedback.set({
+        kind: 'error',
+        message: 'Export failed. Please check permissions and try again.',
+      });
     }
   }
 
@@ -62,12 +72,12 @@ export class HomePage {
 
   onDeleteAllConfirmed(): void {
     this.recipeService.removeAll();
-    this.liveMessage.set('All recipes deleted.');
+    this.feedback.set({ kind: 'success', message: 'All recipes deleted.' });
   }
 
-  private describeImportResult(result: RecipeImportResult): string {
+  private describeImportResult(result: RecipeImportResult): Feedback {
     if (result.errors.length > 0 && result.addedCount === 0 && result.overwrittenCount === 0) {
-      return `Import failed: ${result.errors[0]}`;
+      return { kind: 'error', message: `Import failed: ${result.errors[0]}` };
     }
     const parts = [
       `Imported ${result.addedCount} new recipe${result.addedCount === 1 ? '' : 's'}`,
@@ -78,6 +88,6 @@ export class HomePage {
         `skipped ${result.skippedCount} invalid entr${result.skippedCount === 1 ? 'y' : 'ies'}`,
       );
     }
-    return `${parts.join(', ')}.`;
+    return { kind: 'success', message: `${parts.join(', ')}.` };
   }
 }

@@ -1,6 +1,15 @@
 <h1>GrandMa</h1>
 
-<div class="visually-hidden" role="status" aria-live="polite">{{ liveMessage() }}</div>
+@if (feedback(); as fb) {
+  <p
+    class="home-feedback"
+    [class.home-feedback-error]="fb.kind === 'error'"
+    role="status"
+    aria-live="polite"
+  >
+    {{ fb.message }}
+  </p>
+}
 
 <div class="home-actions">
   <a class="button button-primary" [routerLink]="['/recipes']">Explore recipes</a>
